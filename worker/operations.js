@@ -169,6 +169,7 @@ async function operationsAPI(request,env){
  const url=new URL(request.url),path=url.pathname;
  try{
  if(path==='/api/property/status'&&request.method==='GET'){let available=false;if(env.DB&&env.BUCKET){await env.DB.prepare('SELECT id FROM siege_records LIMIT 1').first();available=true}const profile=available?await estateAccount(env,opsUser(request)):null;return opsJSON({available,authenticated:!!opsUser(request),isAdmin:opsAdmin(request),registered:!!profile,profile:profile?.data||null,email:opsUser(request)?request.headers.get('oai-authenticated-user-email'):null,identity:'Sites sign-in'})}
+ if(path==='/api/operations/candidates'||path==='/api/operations/candidates/cv')return await candidateAdmin(request,env,url);
  if(path==='/api/operations/readiness'&&request.method==='GET'){
   if(!opsAdmin(request))return opsJSON({error:'Administrator access required.'},403);
   const resources=[];if(env.BUCKET)for(const kind of ['homesteads','villages','parcels']){const o=await env.BUCKET.head('geocoding/'+kind+'.json');resources.push({kind,present:!!o,count:o?.customMetadata?.count||0})}
@@ -322,7 +323,7 @@ async function operationsAPI(request,env){
  if(path==='/api/experts/applications'&&request.method==='POST'){
   const b=await opsBody(request);if(b.consent!==true)throw Error('Consent to storing and reviewing the profile is required.');
   const data={name:opsText(b.name,'name',100),email:opsEmail(b.email),...opsTrade(b,true),location:opsText(b.location,'location',100),experience:Number(b.experience),skills:opsText(b.skills,'skills',3000).split(/[,;\n]/).map(s=>s.trim()).filter(Boolean).slice(0,12),...expertAvailabilityData(request,b),photo:''};
-  if(!Number.isInteger(data.experience)||data.experience<0||data.experience>80)throw Error('Enter years of experience between 0 and 80.');const id=crypto.randomUUID(),created=[];await opsRate(request,env);try{if(b.photo)data.photo=await opsPhoto(env,b.photo,'experts',id,opsUser(request),created);await opsStore(env,'experts',{id,owner:opsUser(request),createdAt:new Date().toISOString(),state:'pending_review',data});return opsJSON({id,message:'Application saved for SIEG review. It is not listed publicly until approved.'},201)}catch(e){for(const key of created)await env.BUCKET.delete(key);throw e}
+  if(!Number.isInteger(data.experience)||data.experience<0||data.experience>80)throw Error('Enter years of experience between 0 and 80.');const id=crypto.randomUUID(),created=[];await opsRate(request,env);try{if(b.photo)data.photo=await opsPhoto(env,b.photo,'experts',id,opsUser(request),created);const cv=await candidateCVSave(env,b.cv,id,created);await opsStore(env,'experts',{id,owner:opsUser(request),createdAt:new Date().toISOString(),state:'pending_review',data,candidateProfile:candidateProfile(b,'experts',data),candidateCV:cv});return opsJSON({id,message:'Application saved for SIEG review. It is not listed publicly until approved.'},201)}catch(e){for(const key of created)await env.BUCKET.delete(key);throw e}
  }
  if(path==='/api/experts/briefs'&&request.method==='POST'){
   const b=await opsBody(request);if(b.consent!==true)throw Error('Consent to storing your project brief is required.');
@@ -353,7 +354,7 @@ async function operationsAPI(request,env){
   if(request.method==='POST'){
    const b=await opsBody(request);if(!opsId(b.id))throw Error('Invalid record.');const record=await opsRead(env,opsKey(kind,b.id));const product=kind==='enquiries'?url.searchParams.get('product'):null;if(!record||(product&&record.data?.product!==product))return opsJSON({error:'Record not found.'},404);
    const actions=['briefs','enquiries','estate_requests'].includes(kind)?['contacted','closed','delete',...(kind==='enquiries'&&record.data?.product==='SIEG Transit Bundle Access'?['approved','revoked']:[])]:['approved','rejected','delete'];if(!actions.includes(b.action))throw Error('Choose a valid review action.');
-   if(b.action==='delete'){for(const photo of [...(record.data.photos||[]),record.data.photo].filter(Boolean))await env.BUCKET.delete(photo.startsWith('/api/property/media/')?'operations/property-photos/'+await reportSHA(record.owner)+'/'+record.id+'/'+photo.split('/').pop():'operations/media/'+photo.split('/').pop());await opsRemove(env,kind,record.id);return opsJSON({deleted:true})}
+   if(b.action==='delete'){if(record.candidateCV?.key)await env.BUCKET.delete(record.candidateCV.key);for(const photo of [...(record.data.photos||[]),record.data.photo].filter(Boolean))await env.BUCKET.delete(photo.startsWith('/api/property/media/')?'operations/property-photos/'+await reportSHA(record.owner)+'/'+record.id+'/'+photo.split('/').pop():'operations/media/'+photo.split('/').pop());await opsRemove(env,kind,record.id);return opsJSON({deleted:true})}
    if(kind==='enquiries'&&record.data?.product==='SIEG Transit Bundle Access'&&['approved','revoked'].includes(b.action))record.data.bundleAccessActive=b.action==='approved';record.state=b.action;record.reviewedAt=new Date().toISOString();await opsStore(env,kind,record);return opsJSON({id:record.id,state:record.state});
   }
  }

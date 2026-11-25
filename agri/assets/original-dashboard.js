@@ -132,6 +132,7 @@ function getAnalysisGeometry() {
 
 
 function requireGeometry(onReady) {
+  if(window.SiegExplicitAnalysis&&!window.SiegExplicitAnalysis.allowed()){print("Choose indicators, then click Start analysis.");return null;}
 
   var geom = getAnalysisGeometry();
 
@@ -914,6 +915,7 @@ function runGlobalLandSuitability(geom, reason) {
   var current = function(){return token === landSuitabilityRequest && window.siegeAgri.getGeometry() === geom;};
   window.SiegLandSuitability.analyse(ee,geom,{current:current,onProgress:function(message){if(current())progressLabel.setValue(message);}}).then(function(product){
     if(!product || !current())return;
+    window.SiegFieldsLastSuitability=product;
     Map.addLayer(product.image,{min:1,max:5,palette:window.SiegLandSuitability.palette},'Land suitability — global screening',true);
     addLegend('Agricultural land screening',window.SiegLandSuitability.palette,window.SiegLandSuitability.labels);
     var st=product.stats, means=st.means||{};

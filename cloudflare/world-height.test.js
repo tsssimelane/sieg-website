@@ -6,14 +6,14 @@ test('fit overview returns to a centered world without adding polar padding',()=
 test('standalone then/or separator labels are removed from all AOI panels',()=>{for(const file of ['agri/index.html','enviro/index.html','hydrology/index.html','irrigation/content.html'])assert.doesNotMatch(fs.readFileSync(file,'utf8'),/<p class="(?:agri-aoi-divider|sieg-aoi-divider)">\s*(?:then|or)\s*<\/p>/,file)});
 test('initial canvas sizing settles the view before raising the minimum zoom',()=>{const h=setup(900),setMinZoom=h.map.setMinZoom;h.map.setMinZoom=function(zoom){assert.ok(h.zoom>=zoom,'setMinZoom must not start an animated transition during initial resize');return setMinZoom.call(this,zoom)};h.api.mount(h.map);assert.equal(h.zoom,2)});
 
-test('switching to Streets opens the world view while preserving zoom controls and report captures',()=>{
+test('switching basemaps preserves the selected AOI and zoom',()=>{
  const h=setup();h.api.mount(h.map);
  const layer={_url:'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'};
- h.setView({lat:-26,lng:31},15);h.events.layeradd({layer});
- assert.equal(h.zoom,2);assert.equal(h.map.getCenter().lat,0);
+ h.setView({lat:-26,lng:31},15);h.events.layeradd?.({layer});
+ assert.equal(h.zoom,15);assert.equal(h.map.getCenter().lat,-26);
  h.setView({lat:-26,lng:31},16);
- h.events.layeradd({layer:{...layer,options:{className:'sieg-recent-report-satellite'}}});
+ h.events.layeradd?.({layer:{...layer,options:{className:'sieg-recent-report-satellite'}}});
  assert.equal(h.zoom,16);
- h.events.layeradd({layer:{_url:'https://server.arcgisonline.com/imagery'}});
+ h.events.layeradd?.({layer:{_url:'https://server.arcgisonline.com/imagery'}});
  assert.equal(h.zoom,16);
 });

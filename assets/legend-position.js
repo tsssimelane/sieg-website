@@ -31,15 +31,15 @@ function update(allowFit=false){
  // Keep placement at map corners, or corners of the area left by drawers.
  const xs=home.right?[size.x-w-14,14]:[14,size.x-w-14],ys=home.top?[14,size.y-height-32]:[size.y-height-32,14];
  const drawerOpen=[...scope.querySelectorAll('.sieg-floating-panel,.measure-map-drawer,.capture-map-panel,#transitDrawer')].some(el=>{const r=el.getBoundingClientRect(),style=getComputedStyle(el);return !el.hidden&&!el.closest('.is-panel-hidden')&&el.getAttribute('aria-hidden')!=='true'&&style.display!=='none'&&style.visibility!=='hidden'&&r.right>container.left+2&&r.left<container.right-2&&r.bottom>container.top&&r.top<container.bottom;});
- const returning=home.drawerOpen&&!drawerOpen;home.drawerOpen=drawerOpen;if(returning)fitKey=null;
+ const returning=home.drawerOpen&&!drawerOpen;home.drawerOpen=drawerOpen;
  for(const r of obstacles){if(r.x<size.x/2)xs.push(r.x+r.w+8);if(r.x+r.w>size.x/2)xs.push(r.x-w-8);if(r.y<size.y/2)ys.push(r.y+r.h+8);if(r.y+r.h>size.y/2)ys.push(r.y-height-8);}
  for(const x of xs)for(const y of ys){if(x<8||x+w>size.x-8||y<8||y+height>size.y-8)continue;candidates.push({side:x<size.x/2?'left':'right',x,y,w,h:height});}
  if(!candidates.length)candidates.push({side:'left',x:8,y:12,w,h:height});
  let best=choose(candidates,projected,obstacles);const original={side:home.right?'right':'left',x:xs[0],y:ys[0],w,h:height};
  if(returning&&choose([original],[],obstacles).cost===0)best=choose([original],projected,obstacles);legend.style.setProperty('left',best.box.x+'px','important');legend.style.setProperty('right','auto','important');legend.style.setProperty('top',best.box.y+'px','important');legend.style.setProperty('bottom','auto','important');legend.dataset.legendSide=best.box.side;
  // If every corner is occupied by the AOI, make space once for this layout.
- const key=JSON.stringify([geo,size.x,size.y,w,height,obstacles]);
- if(score(best.box,projected)&&geo.length&&fitKey!==key&&root.SiegFitMap&&root.L){fitKey=key;root.SiegFitMap.area(map,root.L.latLngBounds(geo.flatMap(poly=>poly[0].map(p=>[p[1],p[0]]))));schedule(false);}
+ const key=JSON.stringify([geo,size.x,size.y]);
+ if(allowFit&&!root.SiegAreaSection?.complete&&score(best.box,projected)&&geo.length&&fitKey!==key&&root.SiegFitMap&&root.L){fitKey=key;root.SiegFitMap.area(map,root.L.latLngBounds(geo.flatMap(poly=>poly[0].map(p=>[p[1],p[0]]))));schedule(false);}
 
 
  }

@@ -7,13 +7,19 @@ vm.runInNewContext(fs.readFileSync('assets/auto-map-fit.js','utf8'),{window:root
 function map(){const events={};return {getContainer:()=>canvas,getBounds:()=>bounds,invalidateSize(){invalidations++},on(name,fn){for(const n of name.split(' '))events[n]=fn},whenReady:fn=>fn(),events};}
 function flush(){const callbacks=[...timers.values()];timers.clear();callbacks.forEach(fn=>fn())}
 const one=map();root.SiegAutoMapFit.register(one,()=>bounds);flush();assert.equal(invalidations,1);assert.equal(fits,0,'Initial registration preserves the current view');
-for(let n=0;n<20;n++)root.SiegAutoMapFit.refresh();assert.equal(timers.size,1,'Burst updates debounce per map');flush();assert.equal(fits,1);assert.equal(invalidations,2);
+for(let n=0;n<20;n++)root.SiegAutoMapFit.refresh();assert.equal(timers.size,1,'Burst updates debounce per map');flush();assert.equal(fits,1);assert.equal(invalidations,1,'Same-sized canvases are not invalidated again');
 const before=fits;one.events.dragstart();root.SiegAutoMapFit.refresh();flush();assert.equal(fits,before,'No automatic fit while dragging');one.events.dragend();
 canvas.style.cursor='crosshair';root.SiegAutoMapFit.refresh();flush();assert.equal(fits,before,'Do not interrupt polygon/outlet placement');canvas.style.cursor='';
 dialog=true;root.SiegAutoMapFit.refresh();flush();assert.equal(fits,before,'Do not change framing behind an open modal');dialog=false;
-listeners.close[0]({target:{matches:()=>true}});flush();assert.equal(fits,before+1,'Closing the modal refits the selected area');
-listeners.click[0]({target:{closest:()=>({closest:()=>true})}});flush();assert.equal(fits,before+1,'Zoom/navigation action preserves requested view');
-width=0;root.SiegAutoMapFit.refresh();flush();assert.equal(fits,before+1,'Hidden canvases are skipped');width=800;
+listeners.close[0]({target:{matches:()=>true}});flush();assert.equal(fits,before,'Closing a modal preserves the selected view');
+listeners.click[0]({target:{closest:()=>({closest:()=>true})}});flush();assert.equal(fits,before,'Zoom/navigation action preserves requested view');
+width=0;root.SiegAutoMapFit.refresh();flush();assert.equal(fits,before,'Hidden canvases are skipped');width=800;
+// Simulate the UI/Leaflet feedback loop after AOI closure. No DOM update
+// may trigger another fit or reload imagery at the same canvas dimensions.
+const stableFits=fits,stableInvalidations=invalidations;
+for(let i=0;i<50;i++){for(const f of listeners['sieg-area-state'])f({});observers[0].fn([{type:'attributes',target:{matches:()=>true,closest:()=>null}}]);flush();}
+assert.equal(fits,stableFits);assert.equal(invalidations,stableInvalidations);assert.equal(timers.size,0);
+width=900;root.SiegAutoMapFit.refresh(false);flush();assert.equal(invalidations,stableInvalidations+1);assert.equal(fits,stableFits);
 const two=map();root.SiegAutoMapFit.register(two);flush();const beforeTwo=fits,beforeViewport=viewportFits;root.SiegAutoMapFit.refresh();flush();assert.equal(fits,beforeTwo+1,'AOI map refits selected area');assert.equal(viewportFits,beforeViewport+1,'Map without AOI actually refits its remembered viewport');
 root.SiegAutoMapFit.register(two,()=>null,()=>true);const drawingViewport=viewportFits;root.SiegAutoMapFit.refresh();flush();assert.equal(viewportFits,drawingViewport,'Local drawing state blocks fallback refit');
 one.events.unload();two.events.unload();root.SiegAutoMapFit.refresh();assert.equal(timers.size,0,'Removed maps release observers and scheduled work');

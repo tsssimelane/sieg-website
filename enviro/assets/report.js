@@ -53,8 +53,7 @@ let reportEvaluations=[];const options={kind:'report',service:'eco',version:'eco
 // Report preparation drains checked indicators without invoking delivery or restoring the AOI.
 options.prepareReport=async()=>{
  if(window.SiegIndicatorSelection?.items().length){
-  window.SiegeDelivery.progress('Finishing checked indicators for your report…');
-  await window.SiegIndicatorSelection.process();
+  if(window.SiegExplicitAnalysis&&!window.SiegExplicitAnalysis.ready())throw Error('Complete Start analysis first.');
  }
  const items=options.items();
  if(!items.length)throw Error('No completed indicators are available for this boundary. Run a selected indicator and retry the report.');

@@ -65,11 +65,12 @@
   finally{if(ticket===listRequest)more.disabled=false;}
  }
  $('graduateSearchForm').onsubmit=e=>{e.preventDefault();query=$('graduateSearch').value.trim();load();};more.onclick=()=>load(true);filter.onchange=()=>{world.select(filter.value);load();};
+ const candidateAttachment=window.SiegCandidateCV.mount(form,'graduate',form.querySelector('.graduate-consent'));
  form.onsubmit=async e=>{
   e.preventDefault();const button=form.querySelector('[type=submit]'),fields=new FormData(form);
   const p=Object.fromEntries(fields);p.consent=fields.has('consent');if(p.university==='__other')p.university=p.otherUniversity;delete p.otherUniversity;
   button.disabled=true;status('graduateFormStatus','Saving graduation record…');
-  try{const d=await api('',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)});form.reset();universities();subTrades();query='';filter.value='';world.select('');$('graduateSearch').value='';status('graduateFormStatus',d.existing?'This graduation record is already in the directory.':'Your graduation record was added.');await Promise.all([load(),refreshMap()]);}
+  try{Object.assign(p,await candidateAttachment());const d=await api('',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)});form.reset();universities();subTrades();query='';filter.value='';world.select('');$('graduateSearch').value='';status('graduateFormStatus',d.existing?'This graduation record is already in the directory.':'Your graduation record was added.');await Promise.all([load(),refreshMap()]);}
   catch(e){status('graduateFormStatus',e.message);}
   finally{button.disabled=false;}
  };

@@ -28,6 +28,7 @@
   function apply(){
    if(state.applying)return;
    const width=canvas.clientWidth||frame?.clientWidth||0;if(!width)return;
+   const desired=metrics(width,standardHeight?undefined:canvas.clientHeight),signature=width+'x'+desired.height+'@'+(frame?.querySelector('.siege-map-header,.map-tools')?.getBoundingClientRect().height||0);if(!state.first&&state.signature===signature)return;state.signature=signature;
    state.applying=true;
    try{
     const next=metrics(width,standardHeight?undefined:canvas.clientHeight),center=map.getCenter(),oldZoom=map.getZoom(),overview=state.first||(oldZoom<=state.zoom+.001&&Math.abs(center.lat)<1);
@@ -61,15 +62,8 @@
   let pending;
   function schedule(){if(pending)return;pending=root.requestAnimationFrame(()=>{pending=null;apply()})}
   if(root.ResizeObserver){const observer=new root.ResizeObserver(()=>{schedule();if(standardHeight)root.requestAnimationFrame(alignPanel)});observer.observe(canvas);if(frame)observer.observe(frame);state.observer=observer}
-  function openStreets({layer}){
-   const source=String(layer?._url||'');
-   if(!/^https?:\/\/(?:[^./]+\.)?tile\.openstreetmap\.org\//i.test(source))return;
-   if(layer.options?.className==='sieg-recent-report-satellite'||root.SiegFitMap?.inProgress(map))return;
-   fit(map);
-  }
   root.addEventListener('resize',schedule);
-  map.on('layeradd',openStreets);
-  map.on('unload',()=>{map.off('layeradd',openStreets);state.observer?.disconnect();root.removeEventListener('resize',schedule);if(pending)root.cancelAnimationFrame(pending);mounted.delete(map)});
+  map.on('unload',()=>{state.observer?.disconnect();root.removeEventListener('resize',schedule);if(pending)root.cancelAnimationFrame(pending);mounted.delete(map)});
   state.apply=apply;apply();
  }
  function fit(map){mount(map);const state=mounted.get(map);state.apply();map.stop();if(state.homeView)state.homeView(map);else map.setView([0,0],state.zoom,{animate:false})}

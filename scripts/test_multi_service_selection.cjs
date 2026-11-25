@@ -11,14 +11,14 @@ async function test(service){
  vm.runInContext(block+`;globalThis.testAPI={mark,processSelections,selections,states};`,c);
  for(const row of rows)for(const item of catalog[row.source.group])c.testAPI.mark(row.source,item,true);
  assert.equal(root.SiegIndicatorSelection.items().length,4,'Two checked indicators in each of two services');
- await c.testAPI.processSelections();await Promise.resolve();assert.equal(exports,service==='eco'?1:0,'Eco PDF starts after all checked indicators complete');assert.equal(count,4);assert.equal(maxConcurrent,1,'Analyses are serialized');
- await c.testAPI.processSelections();await Promise.resolve();assert.equal(exports,service==='eco'?1:0,'A report check does not start another automatic export');assert.equal(count,4,'Completed indicators are reused within the same scope');
+ await c.testAPI.processSelections();await Promise.resolve();assert.equal(exports,0,'Report generation waits for a user request');assert.equal(count,4);assert.equal(maxConcurrent,1,'Analyses are serialized');
+ await c.testAPI.processSelections();await Promise.resolve();assert.equal(exports,0,'No automatic export');assert.equal(count,4,'Completed indicators are reused within the same scope');
  rows[0].source.check.checked=false;assert.equal(root.SiegIndicatorSelection.items().length,2,'Unchecking one service preserves the other service');
  rows[0].source.check.checked=true;assert.equal(root.SiegIndicatorSelection.items().length,4);
  c.testAPI.mark(rows[0].source,catalog[groups[0]][0],false);assert.equal(root.SiegIndicatorSelection.items().length,3,'Indicators can be unchecked independently');
  root.SiegeUsage.active={...root.SiegeUsage.active,year:2025};await c.testAPI.processSelections();assert.equal(count,7,'Changed analysis scope invalidates completion');
  authorised=false;root.SiegeUsage.active={...root.SiegeUsage.active,year:2024};await c.testAPI.processSelections();assert.equal(count,7,'Unpaid selections never run');assert.equal(root.SiegIndicatorSelection.items().length,3,'Awaiting payment does not erase checks');
- if(service==='eco'){const before=exports;authorised=true;failNext=true;root.SiegeUsage.active={...root.SiegeUsage.active,year:2023};await c.testAPI.processSelections();await Promise.resolve();assert.equal(exports,before,'Incomplete batches never start a misleading PDF export');await c.testAPI.processSelections();await Promise.resolve();assert.equal(exports,before+1,'Retrying the failed indicator starts one PDF after the batch completes');}
+ if(service==='eco'){const before=exports;authorised=true;failNext=true;root.SiegeUsage.active={...root.SiegeUsage.active,year:2023};await c.testAPI.processSelections();await Promise.resolve();assert.equal(exports,before,'Incomplete batches never start a misleading PDF export');await c.testAPI.processSelections();await Promise.resolve();assert.equal(exports,before,'Retrying never starts a PDF automatically');}
 }
 (async()=>{await test('fields');await test('eco');await test('hydrology');
  const server={};vm.createContext(server);const commerce=fs.readFileSync('worker/hydrology-commerce.js','utf8');vm.runInContext(commerce.slice(commerce.indexOf('function hydroSingleReportItem')),server);

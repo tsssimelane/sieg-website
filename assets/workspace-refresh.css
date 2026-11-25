@@ -170,3 +170,5 @@
 
 :root body .address-report-panel{position:static;width:100%;grid-column:1/-1}
 :root body .address-report-panel .sieg-map-report-actions{justify-content:flex-end;margin-inline-start:auto}
+
+:root body .sieg-map-report-actions .sieg-start-analysis-button{background:#168b8e!important;border-color:#168b8e!important;color:#fff!important}:root body .sieg-map-report-actions button:disabled{cursor:not-allowed}

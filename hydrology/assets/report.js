@@ -1,5 +1,4 @@
 (()=>{'use strict';const $=id=>document.getElementById(id),escape=value=>String(value??'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));const options={kind:'report',service:'hydrology',items:()=>[{id:'conditions',label:'Water conditions and balance findings',disabled:!window.hydroConditionsReport||window.hydroConditionsReport.geometry!==window.aoi||window.hydroConditionsReport.year!==window.year},{id:'analysis',label:window.activeProduct?.title||'Current indicator analysis',disabled:!window.activeProduct},{id:'map',label:'Visible analysis map',disabled:!window.aoi},{id:'flood',label:'Flood Watch scenario',disabled:!window.hydroFloodSummary||window.hydroFloodSummary.geometry!==window.aoi},{id:'validation',label:'Ground-record comparison',disabled:!window.hydroValidationSummary||window.hydroValidationSummary.geometry!==window.aoi||window.hydroValidationSummary.year!==Number(window.year)}],build:async (contact,selected)=>{if(!window.SiegReportKitReady)throw Error('Report tools did not load. Reload this service and retry.');await window.SiegReportKitReady();if(window.SiegIndicatorSelection?.items().length){
- await window.SiegIndicatorSelection.process();
  const chosen=window.SiegIndicatorSelection.items(),rows=window.SiegHydroSelectedResults();
  requireSelectedResults(chosen,rows);
  const geometry=rows[0].geometry,esc=escape;
@@ -16,12 +15,14 @@ function requireSelectedResults(chosen,rows){
  if(missing.length)throw Error('These Hydrology layers still need results or tool inputs: '+missing.map(choice=>choice.label||choice.value).join(', ')+'. Complete them and retry without paying again.');
 }
 window.SiegHydroScheduleReport=()=>{
+ if(window.SiegExplicitAnalysis)return Promise.resolve(false);
  const active=window.SiegeUsage?.active;
  if(active?.service!=='hydrology'||(!active.paymentVerified&&!active.adminUnrestricted))return;
  return window.SiegeDelivery.loadReport(options,{automatic:true});
 };
 // Finish the selected Hydrology action before reading its report sections.
 window.SiegHydroPrepareReport=async job=>{
+ if(window.SiegExplicitAnalysis){if(!window.SiegExplicitAnalysis.ready())throw Error('Complete Start analysis first.');requireSelectedResults(window.SiegIndicatorSelection?.items()||[],window.SiegHydroSelectedResults());return true;}
  if(!window.SiegIndicatorSelection?.configured()&&job.indicatorSelections?.length)window.SiegIndicatorSelection?.restore(job.indicatorSelections);
  if(window.SiegIndicatorSelection?.items().length){await window.SiegIndicatorSelection.process();requireSelectedResults(window.SiegIndicatorSelection.items(),window.SiegHydroSelectedResults());return;}
  if(window.SiegeUsage.active?.id!==job.id)throw Error('The selected Hydrology analysis changed.');

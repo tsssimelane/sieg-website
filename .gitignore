@@ -111,4 +111,9 @@ sieg-release-check.txt
 *.log
 *service-account*.json
 *credentials*.json
-
+launch-secrets*.json
+wrangler.before-update.jsonc
+# Local credentials and release backups
+*.p12
+*.pfx
+*service_account*.json

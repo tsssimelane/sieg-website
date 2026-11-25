@@ -389,7 +389,7 @@ function loadBasinOptions() {
       if(!error && values && !values.length){basinsLoaded=true;basinLabels={};regionFeatures={};window.siegeHydrology?.basinsChanged([]);return;}
       basinLoadError=error || 'No nearby catchments available.';
       window.siegeHydrology?.basinsFailed(basinLoadError);
-      hydroStatus.setValue('Automatic catchment lookup is unavailable. You can upload a boundary instead.');
+      hydroStatus.setValue('Automatic catchment lookup is unavailable. Try another location instead.');
       if(activeTab==='Basins' && window.siegeHydrology?.canAnalyse()) renderTab();
       return;
     }
@@ -632,6 +632,7 @@ function makeMonthly() {
 // ================================================================
 
 async function rebuild() {
+  if(window.SiegExplicitAnalysis&&!window.SiegExplicitAnalysis.allowed()){hydroStatus.setValue("Catchment ready. Choose indicators, then click Start analysis.");return;}
   if(window.SiegeUsage?.active?.freeRestoration)return hydroPreviewRestoration();
   if(window.SiegeUsage){if(!await window.SiegeUsage.ensure(aoi,{preview:true}))return;if(!window.SiegeUsage.canProcess()){map.layers().reset([]);results.clear();legend.clear();products=null;window.activeProduct=null;window.siegeHydrology?.analysisChanged(selectedBasin);hydroStatus.setValue('Boundary preview ready. Choose a task and pay before analysis.');return;}}
   window.SiegeUsage?.setType?.('Catchment preparation');
@@ -1005,7 +1006,7 @@ async function rebuild() {
 
   monthlyFC = makeMonthly();
 
-  renderTab();
+  if(!window.SiegHydroBatchRunning)renderTab();
 
   var token = dataGeneration;
   var analysisYear = year;
@@ -1088,6 +1089,7 @@ var messages = {
 // ================================================================
 
 async function renderTab() {
+  if(window.SiegExplicitAnalysis&&!window.SiegExplicitAnalysis.allowed())return;
   if(window.SiegeUsage?.active?.freeRestoration&&activeTab==='Catchment Health')return hydroPreviewRestoration();
   var requestedTab = activeTab;
   var tabGeneration = ++generation;

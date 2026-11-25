@@ -1,8 +1,8 @@
 (function(root){'use strict';
  const world=[[-85,-180],[85,180]];
  const activeFits=new WeakSet(),captureFits=new WeakSet(),captureQueues=new WeakMap(),reportViews=new WeakMap(),canvasReportViews=new WeakMap(),fittedViews=new WeakMap();
- const boundsKey=b=>JSON.stringify([b.getWest(),b.getSouth(),b.getEast(),b.getNorth()]);
- function rememberFit(map,bounds){if(bounds?.isValid()) {const view={key:boundsKey(bounds),center:map.getCenter(),zoom:map.getZoom()};fittedViews.set(map,view);reportViews.delete(map);}}
+ const boundsKey=b=>JSON.stringify([b.getWest?.(),b.getSouth?.(),b.getEast?.(),b.getNorth?.()]);
+ function rememberFit(map,bounds){if(bounds?.isValid()) {const size=map.getSize?.(),view={key:boundsKey(bounds),center:map.getCenter(),zoom:map.getZoom(),dimensions:size?size.x+'x'+size.y:''};fittedViews.set(map,view);reportViews.delete(map);}}
 
  function duringFit(map,action){
   const alreadyFitting=activeFits.has(map);
@@ -17,6 +17,7 @@
  }
  function fit(map,bounds,options={}){
   if(captureFits.has(map))return;
+  if(bounds?.isValid?.()&&!options.world){const old=fittedViews.get(map),size=map.getSize?.(),center=map.getCenter?.();if(old&&size&&center&&old.key===boundsKey(bounds)&&old.dimensions===size.x+'x'+size.y&&Math.abs(old.center.lat-center.lat)<1e-9&&Math.abs(old.center.lng-center.lng)<1e-9&&old.zoom===map.getZoom())return;}
   if(!bounds?.isValid?.()&&!options.world)bounds=dataBounds(map);
   try{return duringFit(map,()=>{
    map.stop();

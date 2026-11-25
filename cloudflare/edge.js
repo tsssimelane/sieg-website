@@ -3,7 +3,7 @@ import {identityRequest,anonymousRequest} from './auth.js';
 import serviceRoutes from './service-routes.json' with {type:'json'};
 const legacyRoutes=new Map(Object.entries(serviceRoutes).flatMap(([slug,file])=>[[file,'/'+slug],[file.replace(/\.html$/,''),'/'+slug]]));
 legacyRoutes.set('environmental-monitoring.html','/eco');legacyRoutes.set('environmental-monitoring','/eco');
-export const RELEASE='2026-11-14.3';
+export const RELEASE='2026-11-25.1';
 const ADMIN='tss.simelane@gmail.com';
 const json=(value,status=200)=>new Response(JSON.stringify(value),{status,headers:{'Content-Type':'application/json','Cache-Control':'no-store'}});
 export function returnPath(raw){

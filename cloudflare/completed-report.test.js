@@ -1,28 +1,13 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';
-function fieldsFixture(){
- const geometry={siegLocalGeometry:{type:'Polygon',coordinates:[[[0,0],[1,0],[1,1],[0,0]]]}};
- const image={select:()=>image,clip:()=>image,divide:()=>image,rename:()=>image,addBands:()=>image,
-  reduceRegion:()=>({evaluate:callback=>callback({groups:[{texture:7,sum:28}]})})};
- const maps=[];
- const window={SiegeUsage:{active:{id:'job',geometryHash:'area',year:2026}},
-  siegeAgri:{getGeometry:()=>geometry},SiegeDelivery:{progress(){}},
-  Map:{addLayer:()=>({})},siegeFieldsReportLayer:async(_layer,options)=>{maps.push(options);return 'data:image/png;base64,test'}};
- const ee={Image:Object.assign(()=>image,{pixelArea:()=>image}),Reducer:{sum:()=>({group(){}})}};
- const source=fs.readFileSync('agri/assets/report.js','utf8').split('const prepared=')[0];
- const c={window,ee,setTimeout,clearTimeout};
- vm.runInNewContext(source+'window.processSelected=processSelected;})();',c);
- return {window,maps};
+function fixture(){
+ const geometry={type:'Polygon',coordinates:[[[0,0],[1,0],[1,1],[0,0]]]},geom={siegLocalGeometry:geometry};
+ const choice={group:'soil',label:'Soil texture map'},snapshot={key:'soil',title:'Soil texture map',html:'<p>Clay: 28 percent</p>',maps:[{name:'Soil texture',data:'data:image/png;base64,test'}]};
+ let snapshots=[snapshot],ready=true;
+ const window={SiegeUsage:{active:{id:'job',geometryHash:'area',year:2026}},siegeAgri:{getGeometry:()=>geom},SiegExplicitAnalysis:{ready:()=>ready},SiegIndicatorSelection:{items:()=>[choice]},SiegFieldsSelectedResults:()=>snapshots,showTab:()=>{throw Error('Analysis rerun')}};
+ const c={window,document:{},setTimeout,clearTimeout};
+ vm.createContext(c);vm.runInContext(fs.readFileSync('agri/assets/report.js','utf8').split('const options=')[0].replace("(()=>{'use strict';",''),c);
+ return {c,window,setSnapshots:v=>snapshots=v,setReady:v=>ready=v};
 }
-test('Fields report resolves the soil-properties alias and includes the sampled area and map',async()=>{
- const {window,maps}=fieldsFixture();
- const html=await window.processSelected({name:'Test'},['soil-properties']);
- assert.match(html,/data-service="soil"/);
- assert.match(html,/<td>Loam<\/td><td>28.0 ha<\/td>/);
- assert.equal(maps.length,1);
-});
-test('completed report cache reuses preparation and isolates new analysis identities',async()=>{const c={pdfFiles:async files=>files,window:{SiegeUsage:{active:{id:'one',geometryHash:'area',year:2026,task:'soil'}}}};vm.createContext(c);const source=fs.readFileSync('assets/report-delivery.js','utf8'),start=source.indexOf('function reportCacheKey('),end=source.indexOf('const computation=',start);vm.runInContext('const reportCache=new Map();'+source.slice(start,end),c);let calls=0;const options={service:'fields',build:async()=>{calls++;return ['pdf']}};await Promise.all([c.reportFilesCached(options,{},['soil']),c.reportFilesCached(options,{},['soil'])]);assert.equal(calls,1);c.window.SiegeUsage.active.id='two';await c.reportFilesCached(options,{},['soil']);assert.equal(calls,2)});
-test('Fields report rejects changes to the active analysis during map capture',async()=>{
- const {window}=fieldsFixture();
- window.siegeFieldsReportLayer=async()=>{window.SiegeUsage.active.id='other';return 'data:image/png;base64,test'};
- await assert.rejects(window.processSelected({},['soil']),/selected area or year changed/);
-});
+test('Fields report accepts soil-properties purchase alias and reuses completed statistics without rerunning EE',async()=>{const {c}=fixture();const html=await c.processSelected({name:'Test'},['soil-properties']);assert.match(html,/Clay: 28 percent/);assert.match(html,/data:image\/png;base64,test/);});
+test('completed report cache reuses preparation and isolates new analysis identities',async()=>{const c={window:{SiegeUsage:{active:{id:'one',geometryHash:'area',year:2026,task:'soil'}}},pdfFiles:async v=>v};vm.createContext(c);const source=fs.readFileSync('assets/report-delivery.js','utf8'),start=source.indexOf('function reportCacheKey('),end=source.indexOf('const computation=',start);vm.runInContext('const reportCache=new Map();'+source.slice(start,end),c);let calls=0;const options={service:'fields',build:async()=>{calls++;return ['pdf']}};await Promise.all([c.reportFilesCached(options,{},['soil']),c.reportFilesCached(options,{},['soil'])]);assert.equal(calls,1);c.window.SiegeUsage.active.id='two';await c.reportFilesCached(options,{},['soil']);assert.equal(calls,2)});
+test('Fields reports use stored results even when dashboard panels are absent, and reject stale or missing output',async()=>{const f=fixture();assert.match(await f.c.processSelected({},['soil']),/Clay: 28 percent/);f.setReady(false);await assert.rejects(f.c.processSelected({},['soil']),/Complete the selected indicators/);f.setReady(true);f.setSnapshots([]);await assert.rejects(f.c.processSelected({},['soil']),/Complete the selected indicators/);});

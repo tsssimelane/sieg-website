@@ -41,8 +41,8 @@ test('cached point-in-polygon respects holes and multipart geometry',async()=>{
 test('L9 overview remains map-only and preserves local analysis area',async()=>{
  const f=fixture();f.window.siegeHydrology.engineLoaded();await f.mounted.onLocated({lat:-26.5,lon:31.4},null);const aoi=f.window.aoi;await f.node('hydroOverview').onclick();assert.ok(f.assets.includes('WWF/HydroSHEDS/v1/Basins/hybas_9'));assert.equal(f.window.aoi,aoi);await f.node('hydroOverview').onclick();assert.equal(f.window.aoi,aoi);assert.equal(f.overviews.at(-1),null);
 });
-test('missing setup keeps manual upload without silently substituting L9',async()=>{
- const f=fixture({responder:async()=>({ok:true,json:async()=>({assets:{}})})});f.window.siegeHydrology.engineLoaded();await f.mounted.onLocated({lat:0,lon:0},null);assert.equal(f.evaluations,0);assert.match(f.node('hydroBasinStatus').textContent,/Upload a boundary/);assert(!f.assets.includes('WWF/HydroSHEDS/v1/Basins/hybas_9'));assert.equal(f.window.siegeHydrology.canAnalyse(),false);
+test('missing setup requests another location without silently substituting L9',async()=>{
+ const f=fixture({responder:async()=>({ok:true,json:async()=>({assets:{}})})});f.window.siegeHydrology.engineLoaded();await f.mounted.onLocated({lat:0,lon:0},null);assert.equal(f.evaluations,0);assert.match(f.node('hydroBasinStatus').textContent,/Try another location/);assert(!f.assets.includes('WWF/HydroSHEDS/v1/Basins/hybas_9'));assert.equal(f.window.siegeHydrology.canAnalyse(),false);
 });
 test('late configuration cannot overwrite uploaded boundary',async()=>{
  let release;const f=fixture({responder:()=>new Promise(r=>{release=r})});f.window.siegeHydrology.engineLoaded();const pending=f.mounted.onLocated({lat:10,lon:20},null);f.window.SiegAreaSection.complete=true;release({ok:true,json:async()=>({assets:configured,routingAsset:routing})});await pending;assert.equal(f.evaluations,0);assert.equal(f.selections.length,0);

@@ -145,10 +145,15 @@ function inbox(){
  panel.addEventListener('toggle',()=>{if(panel.open&&!refresh.disabled)load()});
  if(panel.open)load();
 }
+function candidateSearch(){
+ const form=document.getElementById('candidateSearchForm'),status=document.getElementById('candidateSearchStatus'),list=document.getElementById('candidateSearchRecords');if(!form)return;let query='',revision=0;
+ function card(c){const entry=el('article');entry.className='resource-review-entry';entry.append(el('h3',c.name||c.id),el('p',(c.kind==='experts'?'Expert':'International graduate')+' · '+c.state.replaceAll('_',' ')));const fields=el('dl');for(const [label,value] of [['Sector',c.sector],['Trade',c.trade],['Experience',c.experience===null?'Not stated':c.experience+' years'],['Country of study',c.studyCountry],['Qualification',c.qualification],['University',c.university],['Skills',c.skills],['Email',c.email]])if(value)fields.append(el('dt',label),el('dd',value));entry.append(fields);const actions=el('div');actions.className='resource-actions';if(c.cv){const a=el('a','Download private CV');a.href='/api/operations/candidates/cv?id='+encodeURIComponent(c.id);a.className='btn';actions.append(a)}else actions.append(el('p','No CV attached'));const b=el('button',c.shortlisted?'Remove from shortlist':'Add to shortlist');b.type='button';b.onclick=async()=>{b.disabled=true;try{const d=await api('/api/operations/candidates',{id:c.id,shortlisted:!c.shortlisted});c.shortlisted=d.shortlisted;b.textContent=c.shortlisted?'Remove from shortlist':'Add to shortlist';status.textContent='Shortlist updated.';if(!c.shortlisted&&form.elements.shortlisted.checked)entry.remove()}catch(e){status.textContent=e.message}finally{b.disabled=false}};actions.append(b);entry.append(actions);return entry}
+ async function load(cursor='',more){const ticket=++revision;status.textContent='Searching candidates…';if(more)more.disabled=true;try{const d=await api('/api/operations/candidates?'+query+(cursor?'&cursor='+encodeURIComponent(cursor):''));if(ticket!==revision)return;if(!cursor)list.replaceChildren();else more.remove();for(const c of d.candidates)list.append(card(c));if(d.cursor){const next=el('button','Load more candidates');next.type='button';next.onclick=()=>load(d.cursor,next);list.append(next)}status.textContent=list.querySelectorAll('article').length+' candidate(s) shown.'}catch(e){status.textContent=e.message;if(more)more.disabled=false}}
+ form.onsubmit=e=>{e.preventDefault();const p=new URLSearchParams(new FormData(form));p.set('shortlisted',String(form.elements.shortlisted.checked));query=p.toString();load()};}
 api('/api/geocoding/admin').then(d=>{
  if(d.isAdmin!==true)return;
  panel.hidden=nav.hidden=false;
  panel.querySelectorAll('[data-review-kind]').forEach(review);
- organise();moderation();businessSubscriptions();paidQueues();summary();inbox();
+ organise();moderation();businessSubscriptions();paidQueues();summary();inbox();candidateSearch();
 }).catch(()=>{});
 })();

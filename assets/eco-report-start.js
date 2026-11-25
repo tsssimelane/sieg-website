@@ -6,6 +6,7 @@ function script(path,ready){if(ready())return Promise.resolve();if(loads.has(pat
 async function ready(){await script('report-kit-loader.js',()=>typeof root.SiegReportKitReady==='function');await root.SiegReportKitReady();await script('report-delivery.js',()=>typeof root.SiegeDelivery?.loadReport==='function');await script('../enviro/assets/report.js',()=>typeof root.SiegEcoDeliverPaid==='function');}
 root.SiegEcoReportReady=ready;
 root.SiegEcoScheduleReport=function(){
+ if(root.SiegExplicitAnalysis)return Promise.resolve(false);
  const job=root.SiegeUsage?.active;if(!job||job.service!=='eco'||!job.paymentVerified&&!job.adminUnrestricted)return Promise.resolve(false);
  if(pending)return pending;
  message('Analysis complete. Preparing your report…');

@@ -3,3 +3,5 @@
 
 :root body .sieg-guide-preference{display:flex!important;align-items:center;gap:9px;margin:14px 0 0;color:#365b65;font:400 14px/1.5 Arial;cursor:pointer;text-align:left}
 :root body .sieg-guide-preference input{appearance:auto!important;display:block!important;flex:0 0 18px!important;width:18px!important;min-width:18px!important;max-width:18px!important;height:18px!important;min-height:18px!important;margin:0!important;padding:0!important;accent-color:#218b8c}
+
+.sieg-tour-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}.sieg-tour-actions button{margin:0}.sieg-page-guide{padding:16px 20px;margin:12px auto;max-width:1200px;background:#eef7f4;border:1px solid #cfe3dd;border-radius:12px}.sieg-page-guide li button{border:1px solid #adcfc6;background:white;color:#176f73;border-radius:6px;padding:5px 9px;cursor:pointer}.sieg-page-guide ol{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.sieg-page-guide li{min-width:0}

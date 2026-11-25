@@ -52,16 +52,17 @@ async function graduateAPI(request,env){
    const identity=Object.values(data).join(' ').toLowerCase(),id='GRADUATE-'+await reportSHA(JSON.stringify([owner,identity]));
    data.level=p.level;if(p.availability!==undefined&&!['Available now','Within 2 weeks','Within 1 month','Not currently available','Contact me','Not stated'].includes(p.availability))throw Error('Choose your work availability.');data.availability=p.availability||'Not stated';data.availabilityConfirmedAt=p.availability?new Date().toISOString():null;const search=identity+' '+p.level.toLowerCase();
    const existing=await env.DB.prepare('SELECT id,body_json FROM siege_records WHERE kind=? AND id=? AND owner=?').bind(GRADUATE_KIND,id,owner).first();
-   if(existing){const record=JSON.parse(existing.body_json);if(record.contactEmail!==email||record.data.level!==data.level||p.availability!==undefined&&record.data.availability!==data.availability){await opsRate(request,env);if(p.availability===undefined){data.availability=record.data.availability||'Not stated';data.availabilityConfirmedAt=record.data.availabilityConfirmedAt||null;}await opsStore(env,GRADUATE_KIND,{...record,contactEmail:email,data,search});}return opsJSON({id,existing:true});}
+   const profile=candidateProfile(p,GRADUATE_KIND,data),created=[];
+   if(existing){const record=JSON.parse(existing.body_json);if(record.contactEmail!==email||record.data.level!==data.level||p.availability!==undefined&&record.data.availability!==data.availability||p.cv||p.candidateProfile){await opsRate(request,env);if(p.availability===undefined){data.availability=record.data.availability||'Not stated';data.availabilityConfirmedAt=record.data.availabilityConfirmedAt||null;}try{const cv=await candidateCVSave(env,p.cv,id,created);await opsStore(env,GRADUATE_KIND,{...record,contactEmail:email,data,search,candidateProfile:p.candidateProfile?profile:record.candidateProfile,candidateCV:cv||record.candidateCV});if(cv&&record.candidateCV?.key)await env.BUCKET.delete(record.candidateCV.key).catch(()=>{});}catch(e){for(const key of created)await env.BUCKET.delete(key);throw e;}}return opsJSON({id,existing:true});}
    await opsRate(request,env);
-   await opsStore(env,GRADUATE_KIND,{id,owner,state:'active',createdAt:new Date().toISOString(),contactEmail:email,search,data});
+   try{const cv=await candidateCVSave(env,p.cv,id,created);await opsStore(env,GRADUATE_KIND,{id,owner,state:'active',createdAt:new Date().toISOString(),contactEmail:email,search,data,candidateProfile:profile,candidateCV:cv});}catch(e){for(const key of created)await env.BUCKET.delete(key);throw e}
    return opsJSON({id},201);
   }
   if(request.method==='DELETE'){
    const id=u.searchParams.get('id');
    if(!/^GRADUATE-[a-f0-9]{64}$/.test(id||''))throw Error('Invalid graduate record.');
-   const result=await env.DB.prepare('DELETE FROM siege_records WHERE kind=? AND id=? AND owner=?').bind(GRADUATE_KIND,id,owner).run();
-   return result.meta?.changes?opsJSON({ok:true}):opsJSON({error:'Graduate record not found.'},404);
+   const previous=await env.DB.prepare('SELECT body_json FROM siege_records WHERE kind=? AND id=? AND owner=?').bind(GRADUATE_KIND,id,owner).first();const result=await env.DB.prepare('DELETE FROM siege_records WHERE kind=? AND id=? AND owner=?').bind(GRADUATE_KIND,id,owner).run();
+   if(result.meta?.changes&&previous){const key=JSON.parse(previous.body_json).candidateCV?.key;if(key&&env.BUCKET)await env.BUCKET.delete(key).catch(()=>{});}return result.meta?.changes?opsJSON({ok:true}):opsJSON({error:'Graduate record not found.'},404);
   }
   return opsJSON({error:'Method not allowed.'},405);
  }catch(e){return opsJSON({error:e.message||'Graduate request failed.'},400);}

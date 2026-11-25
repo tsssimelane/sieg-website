@@ -64,6 +64,12 @@
         "label": "Climate observations",
         "auto": true
       }
+    ],
+    "yield": [
+      {
+        "label": "Yield estimate",
+        "value": "yield"
+      }
     ]
   },
   "eco": {
@@ -131,8 +137,8 @@
         "value": "Carbon monoxide"
       },
       {
-        "label": "Nitrogen dioxide (NO\u2082)",
-        "value": "Nitrogen dioxide (NO\u2082)"
+        "label": "Nitrogen dioxide (NO₂)",
+        "value": "Nitrogen dioxide (NO₂)"
       },
       {
         "label": "Absorbing aerosol index",
@@ -183,11 +189,11 @@
         "hydroAction": "wetness"
       },
       {
-        "label": "Surface moisture (0\u20135 cm)",
+        "label": "Surface moisture (0–5 cm)",
         "hydroAction": "surface"
       },
       {
-        "label": "Root-zone moisture (0\u2013100 cm)",
+        "label": "Root-zone moisture (0–100 cm)",
         "hydroAction": "root"
       },
       {
@@ -221,7 +227,7 @@
         "hydroAction": "runoff"
       },
       {
-        "label": "Forecast rainfall (24\u201372 hours)",
+        "label": "Forecast rainfall (24–72 hours)",
         "hydroAction": "forecast"
       },
       {

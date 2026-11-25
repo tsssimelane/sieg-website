@@ -1,0 +1,38 @@
+/* Service cards use the same scale as Hydrology's assessment cards. */
+:root body .agri-indicator-grid,
+:root body #workspace #modules{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:10px!important;
+}
+:root body .agri-indicator-grid :is(#agriModules button,#openYield),
+:root body #workspace #modules button{
+  box-sizing:border-box;
+  width:100%!important;
+  min-width:0;
+  max-width:100%;
+  min-height:88px!important;
+  height:100%;
+  margin:0!important;
+  padding:12px 8px!important;
+  border-radius:9px!important;
+  font-size:13px!important;
+  font-weight:650;
+  line-height:1.35!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+}
+:root body .agri-indicator-grid #agriModules button:last-child:nth-child(odd){
+  grid-column:auto!important;
+  width:100%!important;
+}
+:root body #workspace #modules button{flex-direction:column;gap:6px}
+:root body #workspace #modules button span{font-size:11px!important;line-height:1.2!important}
+@media(max-width:360px){
+  :root body .agri-indicator-grid,
+  :root body #workspace #modules{grid-template-columns:minmax(0,1fr)!important}
+  :root body .agri-indicator-grid :is(#agriModules button,#openYield),
+  :root body #workspace #modules button{min-height:74px!important}
+}

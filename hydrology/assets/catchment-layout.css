@@ -1,0 +1,30 @@
+
+:root body #shell{grid-template-columns:340px minmax(0,1fr)}
+:root body .hydro-sidebar{padding:6px 8px 6px 6px}
+:root body .hydro-locator{background:#f4f7f2;border:1px solid #d0dfda;border-radius:22px!important;padding:18px 16px!important;margin:12px 0 18px;box-shadow:none}
+:root body .hydro-area-heading{border-left:3px solid #218b8c;padding-left:13px;margin:0 0 16px!important}
+:root body .hydro-area-heading strong{font:700 18px/1.3 Arial,Helvetica,sans-serif!important;color:#102f47}
+:root body .hydro-area-heading small{font:400 13px/1.5 Arial,Helvetica,sans-serif!important;color:#586e7b;margin-top:6px}
+:root body .hydro-locator .locator-pair{display:grid;grid-template-columns:minmax(0,43%) minmax(0,57%);gap:0;border-radius:7px;overflow:hidden}
+:root body .hydro-locator .locator-pair :is(input,select){height:48px;min-width:0;margin:0;font-size:13px;padding:10px 9px}
+:root body #hydroFind{height:48px;width:100%;border-radius:7px;font-size:14px!important;background:#218b8c;color:white;margin-top:12px}
+:root body #hydroBoundaryActions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin:0 0 12px}
+:root body #hydroBoundaryActions button{width:100%;min-width:0;min-height:44px;font:400 11px/1.3 Arial,Helvetica,sans-serif!important;padding:10px 3px!important;text-align:center;white-space:nowrap;border:1px solid #218b8c;border-radius:9px;background:#edf6f3;color:#176f73}
+:root body #hydroSelectBasin{background:#218b8c;color:white}
+:root body #hydroBasinPanel{border:1px solid #d0dfda;background:#f4f7f2;border-radius:12px;padding:12px;margin-bottom:10px}
+:root body #hydroBasinPanel .hydro-basin-step{margin:0;padding:0;border:0}
+:root body .hydro-boundary-note,:root body .hydro-sidebar .aoi-upload small,:root body .hydro-sidebar .aoi-upload small span{font:400 11px/1.6 Arial,Helvetica,sans-serif!important;letter-spacing:normal!important;color:#61727c!important}
+.aoi-query{width:100%;box-sizing:border-box;min-width:0;font-size:12px}
+@media(min-width:851px) and (max-width:1000px){:root body #shell{grid-template-columns:300px minmax(0,1fr)}}
+@media(max-width:850px){:root body #shell{display:flex;flex-direction:column}}
+
+.hydro-setup-controls[hidden]{display:none!important}.hydro-analysis-card:has(.hydro-indicator-controls:empty){display:none}.hydro-analysis-card:has(#sidebarHost:empty){display:none}
+
+:is(#catchmentDelineation,#wetlandMapping) .del-pair,:is(#catchmentDelineation,#wetlandMapping) .del-actions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}:is(#catchmentDelineation,#wetlandMapping) input,:is(#catchmentDelineation,#wetlandMapping) select{min-width:0;width:100%;box-sizing:border-box;border-radius:8px}:is(#catchmentDelineation,#wetlandMapping) button{width:100%;padding:11px 5px;font-size:11px;white-space:nowrap;border-radius:9px}#delRun,#delDownload{background:#218b8c;color:white}#delDownload{margin-top:12px}:is(#catchmentDelineation,#wetlandMapping) .del-ack{display:flex;gap:8px;font-size:11px;line-height:1.5}:is(#catchmentDelineation,#wetlandMapping) .del-ack input{width:auto;flex:none;align-self:flex-start}:is(#catchmentDelineation,#wetlandMapping) .sidebar-note{font-size:11px;line-height:1.6}#delOutlet[aria-pressed=true]{background:#102a43;color:white}
+
+:is(#catchmentDelineation,#wetlandMapping){margin-top:0}:is(#catchmentDelineation,#wetlandMapping)>summary{display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer;list-style:none;padding:0;font-weight:600}:is(#catchmentDelineation,#wetlandMapping)>summary::-webkit-details-marker{display:none}:is(#catchmentDelineation,#wetlandMapping)>summary .eyebrow{margin:0;font-size:11px;letter-spacing:1.1px;color:#218b8c}:is(#catchmentDelineation,#wetlandMapping)>summary::after{content:'Show +';font:400 11px Arial;color:#176f73;white-space:nowrap}:is(#catchmentDelineation,#wetlandMapping)[open]>summary::after{content:'Hide −'}:is(#catchmentDelineation,#wetlandMapping)>summary:focus-visible{outline:3px solid #218b8c;outline-offset:5px;border-radius:4px}.del-content{padding-top:12px}#delCollapse{margin-top:10px;background:#edf6f3;color:#176f73;border:1px solid #bcd6d0}
+
+#hydroModules .hydro-service-choice{position:relative;display:flex;min-width:0}:root body #hydroModules .hydro-service-choice>button{width:100%;height:100%;padding:14px 10px 32px!important;box-sizing:border-box}
+:root body #hydroModules .hydro-service-check{position:absolute!important;right:4px!important;bottom:4px!important;top:auto!important;left:auto!important;display:inline-flex!important;align-items:center;justify-content:center;width:20px!important;height:20px!important;min-height:20px!important;margin:0!important;padding:3px!important;box-sizing:border-box!important;cursor:pointer}
+:root body #hydroModules .hydro-service-check input[type=checkbox]{appearance:auto;width:13px!important;height:13px!important;min-width:13px!important;min-height:13px!important;max-width:13px!important;margin:0!important;padding:0!important;accent-color:#218b8c}
+.hydro-free-restoration{width:100%;margin:12px 0;padding:12px;border:1px solid #218b8c;border-radius:12px;background:#eef7f4;color:#176f73;white-space:normal!important}

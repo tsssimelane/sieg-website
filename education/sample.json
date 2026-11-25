@@ -1,0 +1,93 @@
+{
+  "id": "sieg-l4-sample",
+  "mode": "template",
+  "sourceLabel": "User-provided L4 lesson-plan sample: The world of animals",
+  "created": "2026-10-28T00:00:00Z",
+  "inputs": {
+    "topic": "The world of animals",
+    "subject": "English",
+    "level": "L4",
+    "duration": 110,
+    "classSize": 20,
+    "language": "English",
+    "objectives": "Identify and say 8–10 animal words.\nDescribe animals using adjectives and body features.\nSay what animals can and cannot do.\nAsk and answer what an animal is like.",
+    "needs": "Visual support, gestures and paired rehearsal.",
+    "unitNumber": "1",
+    "lessonNumber": "1",
+    "unitTitle": "The natural world"
+  },
+  "plan": {
+    "title": "Words / The world of animals",
+    "objectives": [
+      "Identify and say 8–10 animal words.",
+      "Describe animals using simple adjectives and body features.",
+      "Say what animals can and cannot do.",
+      "Ask and answer what an animal is like."
+    ],
+    "stages": [
+      {
+        "minutes": 10,
+        "title": "Warm-up: animal sounds & actions",
+        "focus": "Activate prior knowledge",
+        "activity": "Make an animal sound or action. Learners guess the animal, then take turns acting while classmates ask questions. Review lion, eagle, butterfly, sloth, toucan and giant tortoise."
+      },
+      {
+        "minutes": 10,
+        "title": "Look, share & learn",
+        "focus": "Introduce vocabulary",
+        "activity": "Use the lesson picture or teacher-selected animal images. Ask which animals learners can see and how they would describe them. Discuss with a partner before sharing."
+      },
+      {
+        "minutes": 12,
+        "title": "Listen, point & repeat",
+        "focus": "Pronunciation and recognition",
+        "activity": "Model the animal words. Learners point and repeat, using soft, loud, quick and slow repetition. Follow with individual and group practice. Use audio only where the teacher has the matching resource."
+      },
+      {
+        "minutes": 13,
+        "title": "Animal detective",
+        "focus": "Vocabulary and characteristics",
+        "activity": "Give clues about an animal's features. Learners guess, then create clues for a partner: a colourful beak, a shell, wings or eight arms."
+      },
+      {
+        "minutes": 20,
+        "title": "Animal bingo",
+        "focus": "Listening, speaking and recall",
+        "activity": "Game: Animal bingo. Learners write six animal names in a 2 × 3 grid. Read feature or ability clues without naming the animal. Learners mark a matching name, then explain the clue before claiming a row. Award a point for each accurate explanation. All learners can stay seated; offer picture grids and paired support. Check learning by asking each learner to give one new clue."
+      },
+      {
+        "minutes": 10,
+        "title": "Characteristics & actions",
+        "focus": "Adjectives and complete sentences",
+        "activity": "Model descriptions using colourful, strong, quick, small, slow and quiet. Learners complete descriptions and add gestures to demonstrate meaning."
+      },
+      {
+        "minutes": 10,
+        "title": "Sea & land animals",
+        "focus": "New words and abilities",
+        "activity": "Introduce cheetah, beaver, sailfish and octopus. Ask learners to predict whether each can swim, run or fly, then check and practise the words."
+      },
+      {
+        "minutes": 15,
+        "title": "Animal charades",
+        "focus": "Questions and abilities",
+        "activity": "Game: Animal charades. A volunteer chooses an animal and acts out one feature or ability. Partners ask “Can it…?” and explain their guess with an accurate animal characteristic. Rotate the actor and questioner; give one point for a justified guess. A seated drawing or spoken-clue version is available. Finish with one descriptive sentence from every learner."
+      },
+      {
+        "minutes": 6,
+        "title": "Writing & sentence review",
+        "focus": "Animal and ability sentences",
+        "activity": "Learners write short sentences about selected animals, compare with a partner and check whether the descriptions match each animal."
+      },
+      {
+        "minutes": 4,
+        "title": "Exit ticket & review",
+        "focus": "Consolidation",
+        "activity": "Each learner names one animal and states a characteristic or ability. Revisit the lesson objectives and address one common misunderstanding."
+      }
+    ],
+    "keyLanguage": "eagle, butterfly, sloth, toucan, giant tortoise, lion, cheetah, beaver, sailfish, octopus; colourful, strong, quick, slow, quiet; It has…; It can / cannot…; What is it like?",
+    "assessment": "Materials: teacher-selected animal images, word cards, bingo grids and notebooks. Assess vocabulary through clues, paired descriptions, written sentences and the exit ticket. Adapt with visual prompts and sentence starters. Homework: describe an animal with two features and one ability.",
+    "foreseenChallenges": "Some learners may confuse animal names or find descriptions difficult. Use picture prompts, model short sentences and pair learners for rehearsal. Offer extension descriptions for confident learners."
+  }
+}

@@ -1,0 +1,48 @@
+[
+  {
+    "id": "geoboundaries",
+    "title": "geoBoundaries gbOpen / CGAZ",
+    "creators": "William & Mary geoLab and geoBoundaries contributors (Runfola et al., 2020)",
+    "source": "https://www.geoboundaries.org/",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "changes": "Administrative context may be filtered, clipped, simplified or used for location lookup. Preserve original source metadata where supplied."
+  },
+  {
+    "id": "ftw-global",
+    "title": "Fields of The World - Global (2024-2025)",
+    "creators": "Taylor Geospatial and collaborators; Robinson et al. (2026)",
+    "source": "https://source.coop/ftw/global-data",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "changes": "Use only the global predicted boundary product. Satellite-derived field units are not legal property boundaries."
+  },
+  {
+    "id": "hydrobasins",
+    "title": "HydroSHEDS / HydroBASINS v1",
+    "creators": "Bernhard Lehner, Gunther Grill and HydroSHEDS partners; Lehner & Grill (2013)",
+    "source": "https://www.hydrosheds.org/products/hydrobasins",
+    "license": "HydroSHEDS licence agreement (commercial use permitted subject to terms)",
+    "licenseUrl": "https://www.hydrosheds.org/products/hydrobasins",
+    "changes": "Catchment lookup and filtering; boundaries retain their original extent."
+  },
+  {
+    "id": "merit-hydro-basins",
+    "title": "MERIT_Hydro_v07_Basins_v01",
+    "creators": "MERIT Hydro: Dai Yamazaki et al. (2019); uploaded basin derivative provenance to be confirmed",
+    "source": "https://global-hydrodynamics.github.io/MERIT_Hydro/",
+    "license": "MERIT Hydro upstream: ODbL 1.0 for commercial use, or CC BY-NC 4.0 for non-commercial use. Additional derivative terms require confirmation.",
+    "licenseUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+    "changes": "Eight separate continental unit-catchment files. HydroBASINS level 1 routes a location to the corresponding file; the 30 m spatial search returns a complete MERIT polygon. Region 3 is not configured. No cadastral validity claimed.",
+    "assets": [
+      "projects/ee-gee023/assets/cat_pfaf_1_MERIT_Hydro_v07_Basins_v01",
+      "projects/ee-gee023/assets/cat_pfaf_2_MERIT_Hydro_v07_Basins_v01",
+      "projects/ee-gee023/assets/cat_pfaf_4_MERIT_Hydro_v07_Basins_v01",
+      "projects/ee-gee023/assets/cat_pfaf_5_MERIT_Hydro_v07_Basins_v01",
+      "projects/ee-gee023/assets/cat_pfaf_6_MERIT_Hydro_v07_Basins_v01",
+      "projects/ee-gee023/assets/cat_pfaf_7_MERIT_Hydro_v07_Basins_v01",
+      "projects/ee-gee023/assets/cat_pfaf_8_MERIT_Hydro_v07_Basins_v01",
+      "projects/ee-gee023/assets/cat_pfaf_9_MERIT_Hydro_v07_Basins_v01"
+    ]
+  }
+]

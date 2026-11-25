@@ -1,0 +1,47 @@
+/* Shared analysis workspace layout. The map stays independently sized when controls grow. */
+.analysis-workspace{--workspace-height:780px;--workspace-gap:16px}
+.analysis-workspace :is(.agri-workspace,.workspace){min-width:0}
+.analysis-workspace :is(#shell,.dashboard){
+ display:grid;grid-template-columns:minmax(260px,320px) minmax(0,1fr);
+ gap:var(--workspace-gap);align-items:start;min-width:0;
+}
+.analysis-workspace :is(.agri-sidebar,.hydro-sidebar,.dashboard>aside){
+ min-width:0;box-sizing:border-box;min-height:0;
+ height:var(--workspace-height);max-height:var(--workspace-height);
+ overflow-y:auto!important;overflow-x:hidden;scrollbar-gutter:stable;
+}
+.analysis-workspace .siege-map-frame{
+ width:100%;height:var(--workspace-height);min-height:var(--workspace-height);
+ background:#e8eeeb;
+}
+.analysis-workspace .siege-map-frame>#map{
+ min-width:0;min-height:0;background:#e1e8e5;
+}
+.analysis-workspace .siege-map-header>span{
+ flex:1 1 auto;min-width:0;overflow-wrap:anywhere;
+}
+.analysis-workspace .siege-map-header :is(.map-toolbar,.siege-basemap-switch){max-width:none}
+.analysis-workspace :is(input,select,textarea){box-sizing:border-box;max-width:100%}
+.analysis-workspace :is(.map-bottom,.hydro-map-bottom){overflow-wrap:anywhere}
+.analysis-workspace .siege-map-frame .leaflet-control button{white-space:normal;line-height:1.2}
+@media(max-width:850px){
+ .analysis-workspace{--workspace-height:clamp(440px,66svh,640px);--workspace-gap:12px}
+ .analysis-workspace :is(#shell,.dashboard){display:grid;grid-template-columns:minmax(0,1fr)!important}
+ .analysis-workspace :is(.agri-sidebar,.hydro-sidebar,.dashboard>aside){
+  height:auto;max-height:clamp(300px,55svh,520px);
+ }
+}
+@media(max-width:480px){
+ .analysis-workspace .siege-map-frame{--map-header-height:98px}
+ .analysis-workspace .siege-map-frame .siege-map-header{
+  flex-wrap:wrap;justify-content:flex-start!important;align-content:center;gap:4px 8px!important;
+ }
+ .analysis-workspace .siege-map-header>span{flex-basis:100%;line-height:1.2!important}
+ .analysis-workspace .siege-map-frame .siege-basemap-switch{padding:2px!important}
+}
+.map-load-status{position:absolute;z-index:500;top:50%;left:50%;transform:translate(-50%,-50%);width:max-content;max-width:calc(100% - 36px);padding:12px 16px;border:1px solid #bdcfcb;border-radius:12px;background:#fff;color:#0b2338;text-align:center;box-shadow:0 3px 12px #0b233819}
+.map-load-status[hidden],.map-load-status button[hidden]{display:none!important}
+.map-load-status button{display:block;margin:8px auto 0}
+
+/* Show the analysis layer picker only when there are layers to toggle. */
+.analysis-workspace .leaflet-control.layer-box:empty{display:none}

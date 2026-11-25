@@ -1,0 +1,36 @@
+#hydroMonthly{margin:14px 0;border:1px solid #cbded8;border-radius:14px;background:#fff;box-shadow:0 5px 16px #102a4309;color:#102a43;font-size:13px;line-height:1.45}
+#hydroMonthly summary{display:flex;align-items:center;gap:10px;padding:12px;cursor:pointer;list-style:none;border-radius:13px;background:#eff7f4}
+#hydroMonthly summary::-webkit-details-marker{display:none}
+#hydroMonthly[open] summary{border-radius:13px 13px 0 0;border-bottom:1px solid #dbe9e4}
+#hydroMonthly .water-icon{display:grid;place-items:center;flex:0 0 34px;height:34px;border-radius:10px;background:#d8efea;color:#176f73}
+#hydroMonthly .water-icon svg{width:20px;height:20px}
+#hydroMonthly .water-heading{min-width:0;flex:1}
+#hydroMonthly .water-heading strong,#hydroMonthly .water-heading small{display:block}
+#hydroMonthly .water-heading small{color:#526773;margin-top:2px}
+#hydroMonthly .water-chevron{flex:none;width:7px;height:7px;border:solid #176f73;border-width:0 2px 2px 0;transform:rotate(45deg);margin:0 4px 4px}
+#hydroMonthly[open] .water-chevron{transform:rotate(225deg);margin-top:6px}
+#hydroMonthly .water-body{padding:14px 12px}
+#hydroMonthly .water-plan{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px 12px;border-radius:9px;background:#f5f3ea;padding:9px 11px;color:#405869}
+#hydroMonthly .water-plan strong{font-size:18px;color:#102a43}
+#hydroMonthly .water-plan strong span{font-size:12px;font-weight:500;margin-left:2px}
+#hydroMonthly p{margin:0}
+#hydroMonthly .water-intro{margin:10px 0 12px;color:#526773}
+#hydroMonthly form{display:grid;gap:10px;margin:0}
+#hydroMonthly label{display:grid;gap:4px;min-width:0;margin:0;font-weight:600;color:#183447}
+#hydroMonthly .water-schedule{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,120px),1fr));gap:8px}
+#hydroMonthly :is(select,input:not([type=checkbox])){box-sizing:border-box;width:100%;min-width:0;height:44px;min-height:44px;margin:0;padding:8px 9px;border:1px solid #bed2ce;border-radius:8px;background:#fbfdfc;color:#102a43;font-size:13px}
+#hydroMonthly #hydroMonthlyZoneNote,#hydroMonthly .water-footnote{font-size:12px;color:#526773;overflow-wrap:anywhere}
+#hydroMonthly .water-consent{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;border-radius:8px;background:#f4f7f6;font-weight:500}
+#hydroMonthly .water-consent input{flex:none;width:16px!important;min-width:0!important;height:16px!important;min-height:0!important;margin:2px 0 0;accent-color:#176f73}
+#hydroMonthly .water-actions{display:grid;gap:7px}
+#hydroMonthly .water-actions button{min-height:44px;width:100%;margin:0;border-radius:8px;font-weight:650;white-space:normal!important}
+#hydroMonthly .water-primary{background:#176f73;color:#fff;border:1px solid #176f73}
+#hydroMonthly .water-primary:hover:not(:disabled){background:#115b5f}
+#hydroMonthly .water-secondary{background:#fff;color:#176f73;border:1px solid #bdd4ce}
+#hydroMonthly .water-secondary:hover:not(:disabled){background:#eff7f4}
+#hydroMonthly #hydroMonthlyStatus:not(:empty){margin-top:10px;padding:8px 10px;background:#eff7f4;border-radius:8px;overflow-wrap:anywhere}
+#hydroMonthly #hydroMonthlyStop{margin-top:10px}
+#hydroMonthly :focus-visible{outline:2px solid #218b8c;outline-offset:2px}
+#hydroMonthly [hidden]{display:none!important}
+#hydroMonthly #hydroMonthlyPrice{font-size:inherit;font-weight:inherit;margin-left:0}
+#hydroMonthly>summary{font-size:13px}#hydroMonthly .water-heading strong{color:#526773;font-size:14px}#hydroMonthly .water-heading small{font-size:13px}#hydroMonthly .water-plan{display:grid;gap:6px}#hydroMonthly .water-plan strong{font-size:16px}#hydroMonthly .water-plan>span{font-size:13px}#hydroMonthlyForm label{margin:0}#hydroMonthly .water-notes>summary{padding:0;border:0;background:none;font-size:12px;color:#526773;list-style:revert}#hydroMonthly textarea{width:100%;box-sizing:border-box;border:1px solid #bed2ce;border-radius:8px;margin-top:8px;padding:9px;font:13px Arial,sans-serif}#hydroMonthly #hydroMonthlyStatus:not(:empty){margin-top:10px;padding:8px 10px;background:#eff7f4;border-radius:8px;overflow-wrap:anywhere}

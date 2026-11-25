@@ -1,0 +1,6 @@
+:root body .sieg-phone-group{display:grid!important;grid-template-columns:minmax(100px,42%) minmax(0,1fr)!important;gap:0!important;align-items:stretch;border:1px solid #bacdc9;border-radius:10px;overflow:hidden;background:#fff;margin-top:6px;width:100%;box-sizing:border-box}
+:root body .sieg-phone-group>select,:root body .sieg-phone-group>input[type=tel]{display:block!important;width:100%!important;min-width:0!important;max-width:100%;margin:0!important;border:0!important;border-radius:0!important;padding:11px 10px!important;min-height:44px;height:auto;box-sizing:border-box;font:14px/1.4 Arial,sans-serif!important;color:#0b2338;background:#fff}
+:root body .sieg-phone-group>select{border-right:1px solid #bacdc9!important;background:#f6f8f5}
+:root body .sieg-phone-group:focus-within{outline:2px solid #218b8c;outline-offset:2px}
+:root body .sieg-phone-group>input[type=hidden]{display:none!important}
+@media(max-width:800px){:root body .sieg-phone-group>select,:root body .sieg-phone-group>input[type=tel]{font-size:16px!important}}

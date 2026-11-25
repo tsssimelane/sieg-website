@@ -1,0 +1,14 @@
+# SIEG data source policy
+
+Administrative boundaries: use geoBoundaries gbOpen, its public Earth Engine collection, or CGAZ. Direct API calls must use /gbOpen/. Do not substitute gbAuthoritative or gbHumanitarian without separate source review. Retain each file's boundarySource, boundaryLicense, licenseSource and licence notes alongside exports.
+
+Credit: Administrative boundaries: geoBoundaries gbOpen / CGAZ, William & Mary geoLab and contributors (Runfola et al., 2020). Source: https://www.geoboundaries.org/ | Licence: CC BY 4.0, https://creativecommons.org/licenses/by/4.0/ . Used for administrative context and location lookup; boundaries may be filtered, clipped or simplified. Original source metadata is retained where available.
+
+Fields of The World: the approved source is https://source.coop/ftw/global-data (Global 2024-2025 predicted field boundaries), CC BY 4.0. Credit Taylor Geospatial and collaborators; cite Robinson et al. (2026), The first global agricultural field boundary map at 10 m resolution. Link the source and https://creativecommons.org/licenses/by/4.0/ and describe clipping/filtering/simplification if performed. Do not treat the original benchmark/training collection, FULL model, or Planet imagery as covered by this approval. FTW is not currently integrated in SIEG; apply this credit only to outputs actually using it. FTW boundaries are satellite-derived field units, not legal cadastral parcels.
+
+For map exports preserve source/licence text in the image or its accompanying report. For dataset exports include DATA-LICENCES.txt and source metadata. Do not apply exclusive ownership or reuse restrictions to the underlying CC BY data. Uploaded private layers need their own provenance and are not automatically relicensed by this policy.
+
+## Automatic catchment detection
+HydroSHEDS / HydroBASINS v1: Lehner & Grill (2013). Source and licence agreement: https://www.hydrosheds.org/products/hydrobasins . This product uses the HydroSHEDS agreement, not a blanket CC BY label.
+
+MERIT_Hydro_v07_Basins_v01: configured separate uploaded assets projects/ee-gee023/assets/cat_pfaf_{1,2,4,5,6,7,8,9}_MERIT_Hydro_v07_Basins_v01 (brace notation denotes seven tables). HydroBASINS level 1 provides regional routing only. Upstream MERIT Hydro: Yamazaki et al. (2019), https://global-hydrodynamics.github.io/MERIT_Hydro/ . Commercial-use licence option: ODbL 1.0, https://opendatacommons.org/licenses/odbl/1-0/ . Preserve attribution and comply with share-alike / public availability requirements for derived databases. CC BY-NC 4.0 is the alternative non-commercial option. The uploaded continental basin derivatives’ producer, processing history and any additional licence must be confirmed; upstream credit alone is not proof of commercial clearance. Preserve notices with exported catchment data.

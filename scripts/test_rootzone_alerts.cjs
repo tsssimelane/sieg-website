@@ -1,0 +1,10 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),context={module:{exports:{}}};vm.runInNewContext(fs.readFileSync('agri/assets/rootzone-alerts.js','utf8'),context);const {classify}=context.module.exports;const now=Date.now(),d={current:.2,previous:.21,percentile:15,latest:now-86400000,recentCount:56,priorCount:56,rain:2,forecastHours:72,creation:now-3600000};
+assert.equal(classify(d,now).level,'HIGH','Dry percentile + 0.010 decline + limited forecast rainfall');
+assert.equal(classify({...d,rain:6},now).level,'ELEVATED','Rain at threshold is not limited; dry root zone still elevated');
+assert.equal(classify({...d,percentile:70},now).level,'WATCH','Drying without unusual dryness is a watch');
+assert.equal(classify({...d,percentile:70,previous:.2,rain:15},now).level,'LOW');
+for(const key of ['current','previous','percentile','latest','recentCount','priorCount'])assert.equal(classify({...d,[key]:null},now).level,'INSUFFICIENT DATA',key+' cannot be replaced with zero');
+assert.equal(classify({...d,recentCount:27},now).level,'INSUFFICIENT DATA');assert.equal(classify({...d,percentile:101},now).level,'INSUFFICIENT DATA');assert.equal(classify({...d,current:NaN},now).level,'INSUFFICIENT DATA');
+assert.equal(classify({...d,latest:now-8*86400000},now).level,'DATA STALE');assert.equal(classify({...d,latest:now+2*86400000},now).level,'DATA STALE');
+for(const patch of [{rain:null},{rain:-1},{forecastHours:24},{creation:now-3*86400000}])assert.equal(classify({...d,...patch},now).level,'MONITORING ONLY','Missing/stale forecast cannot imply low risk');
+console.log('Root-zone alerts passed: drying/rainfall boundaries, wet conditions, missing data, sparse samples, stale observations and unavailable forecasts.');

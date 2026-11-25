@@ -1,0 +1,13 @@
+/* These processing tools no longer appear in the public Hydrology dashboard. */
+#catchmentDelineation,#wetlandMapping{display:none!important}
+html[data-admin-tool]:not([data-admin-tool-ready]):not([data-admin-tool-denied]) body{visibility:hidden}
+html[data-admin-tool-ready] .admin-tool-selected{display:block!important}
+html[data-admin-tool-ready] :is(.workspace-head,#status){display:block!important}
+html[data-admin-tool-ready] :is(.sieg-procedure,#siegTour,.sieg-service-summary,#hydroConditionsOverview,.sieg-free-trial,.analysis-history,#hydroModules,#hydroAssessments,#hydroFarmTools,#floodWatchTools,.hydro-ground,.hydro-report-choice,.hydro-service-choice,.hydro-overview-choice,.hydro-free-restoration){display:none!important}
+html[data-admin-tool-ready] .workspace{margin:0!important;border:0!important}
+html[data-admin-tool-ready] .workspace-head{padding:16px 24px!important}
+html[data-admin-tool-ready] .workspace-head h2{font-size:24px!important}
+html[data-admin-tool-ready] .admin-tool-selected>summary{pointer-events:none;list-style:none}
+html[data-admin-tool-ready] .admin-tool-selected>summary::after{display:none!important}
+
+html[data-admin-tool-ready] :is(.sieg-layer-services,.sieg-layer-subitems,.sieg-layers-body>hr,.sieg-layers-body>h4,.sieg-layers-body>.sieg-map-note,#requestHydrologyReport){display:none!important}

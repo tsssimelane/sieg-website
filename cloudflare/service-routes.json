@@ -1,0 +1,12 @@
+{
+  "fields": "agri-intelligence.html",
+  "irrigate": "irrigation.html",
+  "hydrology": "hydrology.html",
+  "eco": "enviro-intelligence.html",
+  "estates": "property-explorer.html",
+  "address": "geocoding.html",
+  "transit": "transit.html",
+  "learn": "education.html",
+  "experts": "talent-pool.html",
+  "business": "business-directory.html"
+}

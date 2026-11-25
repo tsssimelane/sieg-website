@@ -1,0 +1,13 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';
+import {generateKeyPair,SignJWT,jwtVerify} from 'jose';
+import {identityRequest} from './auth.js';
+const env={CF_ACCESS_TEAM_DOMAIN:'https://sieg.cloudflareaccess.com',CF_ACCESS_AUD:'a'.repeat(64)};
+const {privateKey,publicKey}=await generateKeyPair('RS256');
+const verify=(token,keys,options)=>jwtVerify(token,publicKey,options);
+async function token({issuer=env.CF_ACCESS_TEAM_DOMAIN,audience=env.CF_ACCESS_AUD,expires='5m'}={}){return new SignJWT({email:'User@example.com'}).setProtectedHeader({alg:'RS256'}).setSubject('123').setIssuedAt().setIssuer(issuer).setAudience(audience).setExpirationTime(expires).sign(privateKey)}
+test('spoofed identity headers are stripped from anonymous requests',async()=>{const r=await identityRequest(new Request('https://sieg.test',{headers:{'oai-authenticated-user-id':'admin','oai-authenticated-user-email':'tss.simelane@gmail.com'}}),env);assert.equal(r.headers.get('oai-authenticated-user-id'),null);assert.equal(r.headers.get('oai-authenticated-user-email'),null)});
+test('valid signed assertion replaces spoofed identity',async()=>{const r=await identityRequest(new Request('https://sieg.test',{headers:{'cf-access-jwt-assertion':await token(),'oai-authenticated-user-id':'fake'}}),env,verify);assert.equal(r.headers.get('oai-authenticated-user-id'),'cf:123');assert.equal(r.headers.get('oai-authenticated-user-email'),'user@example.com')});
+test('public-page session can verify the Access cookie',async()=>{const r=await identityRequest(new Request('https://sieg.test',{headers:{Cookie:'other=x; CF_Authorization='+await token()+'; more=y'}}),env,verify);assert.equal(r.headers.get('oai-authenticated-user-id'),'cf:123')});
+for(const [name,options] of [['expired',{expires:'-1m'}],['wrong issuer',{issuer:'https://other.cloudflareaccess.com'}],['wrong audience',{audience:'b'.repeat(64)}]])test(name+' token is rejected',async()=>{const t=await token(options);await assert.rejects(()=>identityRequest(new Request('https://sieg.test',{headers:{'cf-access-jwt-assertion':t}}),env,verify))});
+test('tampered signature rejected',async()=>{const t=await token(),parts=t.split('.');parts[2]=(parts[2][0]==='a'?'b':'a')+parts[2].slice(1);await assert.rejects(()=>identityRequest(new Request('https://sieg.test',{headers:{'cf-access-jwt-assertion':parts.join('.')}}),env,verify))});
+test('policy JSON is rejected as audience',async()=>{const t=await token();await assert.rejects(()=>identityRequest(new Request('https://sieg.test',{headers:{'cf-access-jwt-assertion':t}}),{...env,CF_ACCESS_AUD:'{"decision":"allow"}'},verify))});

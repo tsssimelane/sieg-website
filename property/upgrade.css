@@ -1,0 +1,113 @@
+.entry-heading{display:flex;justify-content:flex-end;margin-bottom:10px}.shell{height:1100px!important}#sidebar,.results,.property-insights{overflow-y:scroll;scrollbar-width:thin;scrollbar-color:#218b8c #edf1e9;min-height:0}.content{grid-template-columns:310px minmax(300px,1fr) 270px!important}.property-insights{background:#f5f7f2;border-left:1px solid #d6dfdc;padding:20px;font-size:12px}.property-insights h2{font-size:18px;margin:0 0 15px}.property-insights h3{font-size:14px}.property-insights p{line-height:1.65}.property-insights button{width:100%;margin:8px 0;border-radius:6px;padding:11px;border:1px solid #218b8c;color:#218b8c;background:white}.weather-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.weather-grid span{padding:12px 8px;border:1px solid #d6dfdc;border-radius:6px;background:white;line-height:1.6}.weather-grid b{display:block;font-size:16px}.entry-modal label{display:grid;gap:6px;font-size:12px;margin:15px 0}.entry-modal textarea{width:100%;min-height:90px;font:12px Arial;border:1px solid #d6dfdc;padding:10px;border-radius:5px}.entry-location{display:grid;grid-template-columns:1fr 1fr;border:1px solid #d6dfdc;border-radius:6px;overflow:hidden}.entry-location input,.entry-location select{margin:0;border:0;border-radius:0;min-width:0}.entry-location select{border-left:1px solid #d6dfdc}.entry-actions{display:flex;gap:8px;flex-wrap:wrap}.entry-actions button{padding:11px;border:1px solid #bccdc7;border-radius:5px;background:white;color:#218b8c}.photo-previews{display:flex;gap:8px;flex-wrap:wrap}.photo-previews img{width:80px;height:65px;object-fit:cover;border-radius:5px}.entry-modal input[type=checkbox]{width:auto}.access-table{width:100%;border-collapse:collapse}.access-table td,.access-table th{padding:9px 4px;text-align:left;border-bottom:1px solid #d6dfdc;font-size:11px}.access-note{background:#eee8dc;padding:12px;border-radius:6px}.content.table-mode .property-insights,.content.tiles-mode .property-insights{display:none}.art img{width:100%;height:100%;object-fit:cover}@media(max-width:1350px){.content{grid-template-columns:280px minmax(270px,1fr)!important}.property-insights{grid-column:1/-1;max-height:300px}}@media(max-width:800px){.shell{height:auto!important}.content{display:flex!important}.property-insights{max-height:400px;order:-1}.results{max-height:550px!important;overflow-y:scroll!important}.map-wrap{height:450px}.content.table-mode,.content.tiles-mode{display:block!important}}
+
+.intro{flex-wrap:wrap;gap:16px}.intro>.entry-heading{width:100%;display:flex;justify-content:flex-end;margin:0}.entry-heading #propertyInput{flex:0 0 auto;white-space:nowrap}
+/* Keep items within their own scrollable column, beside the fixed map. */
+.workspace{min-height:0;overflow:hidden}.content{grid-template-rows:minmax(0,1fr);overflow:hidden}.content>.results{height:100%;min-height:0;overflow-y:scroll;overflow-x:hidden;scrollbar-gutter:stable;overscroll-behavior-y:contain}
+#sidebar,.results,.property-insights{scrollbar-width:auto;scrollbar-color:#218b8c #e3e9e5;scrollbar-gutter:stable}
+#sidebar::-webkit-scrollbar,.results::-webkit-scrollbar,.property-insights::-webkit-scrollbar{width:14px}
+#sidebar::-webkit-scrollbar-track,.results::-webkit-scrollbar-track,.property-insights::-webkit-scrollbar-track{background:#e3e9e5;border-left:1px solid #cad7d1}
+#sidebar::-webkit-scrollbar-thumb,.results::-webkit-scrollbar-thumb,.property-insights::-webkit-scrollbar-thumb{background:#218b8c;border:3px solid #e3e9e5;border-radius:10px}
+.map-wrap{overflow:hidden}.content.table-mode,.content.tiles-mode{overflow:auto}.content.table-mode>.results,.content.tiles-mode>.results{height:auto;overflow:visible}
+@media(min-width:801px) and (max-width:1350px){.content{grid-template-rows:minmax(0,1fr) 260px}.property-insights{max-height:260px}}
+@media(max-width:800px){.workspace{overflow:visible}.content{overflow:visible}.content>.results{height:550px;flex:none}.property-insights{display:block}.content.table-mode>.results,.content.tiles-mode>.results{height:auto;max-height:none!important}}
+.estate-auth-actions{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0}.entry-modal .estate-auth-actions button,.estate-auth-link{border:1px solid #176f70;border-radius:12px;background:#176f70;color:white;padding:12px 18px;min-height:44px;text-decoration:none;display:inline-flex;justify-content:center;align-items:center}.entry-modal .estate-auth-actions button:last-child{background:#fff;color:#176f70}.entry-modal #estateRegistration label{display:block;margin:16px 0;font:600 13px/1.5 Arial}.entry-modal #estateRegistration input:not([type=checkbox]){display:block;width:100%;box-sizing:border-box;border:1px solid #bacdc9;border-radius:10px;padding:12px;font:14px Arial;margin-top:5px}.entry-modal #estateRegistration .estate-consent{display:flex;gap:8px;font-weight:400}.entry-modal #estateRegistration input[type=checkbox]{width:auto;flex:none}.entry-modal #estateRegistration small{font-size:12px;color:#526570}
+
+.entry-modal #estateRegistration .estate-phone{display:grid;grid-template-columns:minmax(120px,.85fr) minmax(0,1.15fr);border:1px solid #bacdc9;border-radius:10px;overflow:hidden;margin-top:5px;background:white}
+.entry-modal #estateRegistration .estate-phone :is(select,input){width:100%;min-width:0;border:0;border-radius:0;margin:0;padding:12px 10px;min-height:44px;font:14px Arial;box-sizing:border-box}
+.entry-modal #estateRegistration .estate-phone select{border-right:1px solid #bacdc9;background:#f3f7f4;color:#102a43}
+.entry-modal #estateRegistration .estate-phone:focus-within{outline:3px solid #218b8c;outline-offset:2px}
+.entry-modal #estatePasswordLogin label{display:block;margin:16px 0;font:600 13px/1.5 Arial}.entry-modal #estatePasswordLogin input{display:block;width:100%;box-sizing:border-box;border:1px solid #bacdc9;border-radius:10px;padding:12px;font:14px Arial;margin-top:5px}
+
+.estate-login-note{font:12px/1.5 Arial;color:#526570;padding:12px;background:#edf5f1;border-radius:10px}.entry-modal #estatePasswordLogin button:disabled{opacity:.5;cursor:not-allowed}
+/* Separate map and insights with a small, consistent gutter. */
+#content.content{gap:12px;background:#eef2ed}
+#content>.map-wrap{border:1px solid #d6dfdc;border-radius:16px;overflow:hidden;isolation:isolate;box-sizing:border-box}
+#content>.property-insights{border:1px solid #d6dfdc;border-radius:16px;overflow-x:hidden;box-sizing:border-box;background:#f5f7f2}
+@media(max-width:760px){#content.content{gap:12px}}
+
+.entry-modal [hidden]{display:none!important}#estateDetectedCountry,#priceScope{font-size:.9em;line-height:1.4}
+
+.estate-gps-quality{display:grid;gap:5px;padding:12px;border:1px solid #bfd6d0;border-radius:10px;background:#edf4f1;color:#173c37;margin:12px 0}.estate-gps-quality strong{font-size:14px}.estate-gps-quality span{font-size:12px;line-height:1.5}.estate-gps-quality[data-state=good]{border-color:#218b8c;background:#e0f2e9}.estate-gps-quality[data-state=poor],.estate-gps-quality[data-state=error]{border-color:#bd882c;background:#fff5df}.estate-insight-details>summary{font-weight:700;color:#176f73;cursor:pointer;min-height:40px;line-height:1.5}.entry-modal{max-height:90dvh;overflow-y:auto;overscroll-behavior:contain}.entry-modal input:not([type=checkbox]),.entry-modal select{min-height:44px;width:100%;min-width:0;padding:10px;border:1px solid #c8d8d2;border-radius:8px;background:#fff;color:#173c37}.entry-modal input:disabled{background:#eef1ed}.entry-modal .close-entry{position:sticky;top:0;z-index:3;width:40px;height:40px;border:1px solid #c8d8d2;border-radius:50%;background:#fff;color:#173c37;font-size:23px}
+@media(max-width:800px){.shell{height:auto!important;min-height:0!important}.intro{padding:12px 14px;gap:10px}.intro h1{font-size:22px;margin:7px 0}.intro p{margin:5px 0;max-width:none}.intro .tabs{display:flex;gap:5px}.toolbar{padding:10px 14px;gap:8px}.toolbar .actions{gap:6px}.toolbar button,.toolbar select,.tabs button{min-height:42px}.smart-search{padding:12px 14px}.smart-search p{margin:6px 0}.examples{gap:5px;margin-top:8px}.examples button{min-height:36px}.content{flex-direction:column!important;gap:8px!important}.map-wrap{height:300px!important;min-height:280px;order:0}.content>.results{height:auto!important;max-height:290px!important;min-height:72px;overflow-y:auto!important;flex:none;order:1}.property-insights{order:2!important;max-height:none!important;padding:12px!important;overflow:visible!important}.estate-insight-details>div{max-height:300px;overflow-y:auto;padding-right:4px}.estate-insight-details>summary{min-height:24px}.estate-insight-details h2{display:none}.content.tiles-mode>.results,.content.table-mode>.results{max-height:450px!important;overflow:auto!important}.tiles-mode .results{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));padding:10px;gap:10px}.entry-modal{width:calc(100% - 16px);max-height:94dvh;padding:16px;margin:auto}.entry-modal h2{font-size:22px;margin:8px 0}.entry-modal p{line-height:1.45;margin:8px 0}.entry-modal label{margin:9px 0;gap:4px}.entry-modal input:not([type=checkbox]),.entry-modal select,.entry-modal textarea{font-size:16px}.entry-modal textarea{min-height:72px}.entry-modal #listingForm{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 10px;align-items:start}.entry-modal #listingForm>*{grid-column:1/-1}.entry-modal #listingForm>label:has([name=type]),.entry-modal #listingForm>label:has([name=transaction]),.entry-modal #listingForm>label:has([name=area]),.entry-modal #listingForm>label:has([name=beds]){grid-column:auto}.entry-modal #listingForm>button[type=submit]{position:sticky;bottom:0;z-index:2;min-height:46px;margin-top:10px}.entry-actions button{min-height:44px;flex:1}.photo-previews img{width:62px;height:54px}.entry-modal #pointList{max-height:130px;overflow:auto;margin:6px 0}.entry-modal #pointList li{padding:5px 0}.estate-auth-actions{margin:12px 0}}
+.entry-modal,.entry-modal *{box-sizing:border-box}
+@media(max-width:800px){.smart-search>p,.smart-search>.examples{display:none}.smart-search h2{font-size:17px;margin-bottom:10px}.intro>div:not(.tabs):not(.entry-heading){display:none}.intro{padding:8px 12px}.entry-modal input:not([type=checkbox]),.entry-modal select{height:44px}.entry-modal #listingForm{overflow-x:hidden}}
+
+/* Property explorer layout follows the supplied desktop reference. */
+body{padding:8px 2%;background:#f4f5ef}
+.estate-explorer-intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,370px);align-items:center;gap:24px;min-height:168px;padding:30px 24px;background:#f4f5ef;border-bottom:0}
+.estate-explorer-copy{min-width:0}.estate-explorer-copy .eyebrow{color:#218b8c;font-weight:700;letter-spacing:1px}.estate-explorer-copy h1{font:700 clamp(28px,3vw,38px)/1.2 Georgia,serif;margin:12px 0;color:#0b2338}.estate-explorer-copy p{font-size:14px;line-height:1.5;color:#61727c;margin:0;max-width:none}
+.estate-explorer-controls{min-width:0}.estate-explorer-controls .tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding:6px;gap:4px;background:#e9ede5;border-radius:13px}
+:root body .estate-explorer-controls .tabs button{min-height:68px;border:0;border-radius:9px;padding:12px 8px;color:#61727c;background:transparent;font-size:20px!important;line-height:1.2!important;font-weight:400}:root body .estate-explorer-controls .tabs button.active{background:#fff;color:#218b8c;box-shadow:0 2px 6px #102a4310;font-weight:700}
+.toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:16px;padding:12px 18px 12px 24px;min-height:80px}.toolbar #filterToggle{display:block!important;background:transparent;border:0;color:#218b8c;padding:0 6px;min-height:44px}.toolbar #count{white-space:nowrap;color:#0b2338;font-size:16px}.toolbar #sort{width:153px;min-height:36px;background:#fafbf9;margin:0;padding:8px 10px;font-size:14px}.toolbar .actions{display:flex;gap:20px;margin:0 auto 0 10px}.toolbar .actions button{padding:8px 0;color:#218b8c;white-space:nowrap}
+.estate-listing-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#fff;padding:6px 10px;margin-left:auto;flex:0 0 auto}
+:root body .toolbar .estate-listing-actions button{display:flex;align-items:center;justify-content:center;min-height:44px;padding:10px 16px;border:1px solid #83babc;border-radius:9px;font-size:12px!important;line-height:1.35!important;white-space:nowrap!important;font-weight:600;text-align:center}.toolbar .estate-listing-actions .solid{background:#218b8c;color:#fff;border-color:#218b8c}.toolbar .estate-listing-actions .outline{background:#fff;color:#176f73}
+#content.content{column-gap:12px}#content>.map-wrap{border-radius:18px}.map-wrap{--map-toolbar-height:72px}.map-wrap .map-tools{padding:0 12px;border-radius:0;background:#fff}.map-wrap .map-base-toggle{padding:5px;gap:4px;background:#f1f5f0;border-color:#d6dfdc}.map-wrap .map-base-toggle button{min-width:94px;height:46px;border-radius:999px}
+@media(min-width:801px){.shell:not(.estate-filters-open){grid-template-columns:minmax(0,1fr)}.shell:not(.estate-filters-open)>#sidebar{display:none}.shell.estate-filters-open{grid-template-columns:260px minmax(0,1fr)}.shell.estate-filters-open>#sidebar{display:block}}
+@media(min-width:801px) and (max-width:1150px){.toolbar{gap:10px;padding:10px 16px}.toolbar .actions{gap:12px;margin-left:0}.toolbar .count-tag{display:none}.estate-listing-actions{padding:6px}.toolbar #sort{width:140px}:root body .toolbar .estate-listing-actions button{padding:10px}}
+@media(max-width:800px){body{padding:8px}.intro.estate-explorer-intro{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;min-height:0;padding:16px}.intro>.estate-explorer-copy,.intro>.estate-explorer-controls{display:block!important}.estate-explorer-copy h1{font-size:26px;margin:8px 0}.estate-explorer-copy p{font-size:12px}.estate-explorer-controls .tabs{padding:4px}:root body .estate-explorer-controls .tabs button{min-height:44px;font-size:15px!important;padding:8px}.toolbar{display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:6px 12px;min-height:0;padding:8px 12px}.toolbar #sort{width:100%;max-width:160px;justify-self:end;min-height:44px}.toolbar .count-tag{display:none}.toolbar .actions{grid-column:1/-1;justify-content:flex-end;margin:0;gap:18px}.toolbar .actions button{min-height:36px}.toolbar>.estate-listing-actions{grid-column:1/-1;width:100%;margin:0;padding:6px;gap:6px;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}:root body .toolbar .estate-listing-actions button{padding:10px 4px;font-size:clamp(10px,2.7vw,12px)!important;min-width:0}.map-wrap{--map-toolbar-height:62px}.map-wrap .map-tools{padding:0 8px}.map-wrap .map-base-toggle{padding:3px}.map-wrap .map-base-toggle button{min-width:80px;height:44px}.content>.results .empty{padding:16px 8px;margin:0}}
+
+/* Keep location selection visible, independent of the filters drawer. */
+.estate-location{padding:14px 24px 16px;background:#fff;border-top:1px solid #d6dfdc}.estate-location h2{font-size:14px;color:#176f73;margin:0 0 10px}.estate-location-fields{display:grid;grid-template-columns:minmax(140px,1fr) minmax(140px,1fr) minmax(180px,1.3fr) auto;gap:12px;align-items:end}.estate-location label.field{margin:0;font-size:12px}.estate-location input,.estate-location select{width:100%;min-width:0;min-height:44px;margin:5px 0 0;padding:10px}.estate-location button{min-height:44px;white-space:nowrap}.estate-location:focus-within{box-shadow:inset 3px 0 #218b8c}@media(max-width:800px){.estate-location{padding:12px}.estate-location-fields{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}.estate-location-fields label:last-of-type{grid-column:1/-1}.estate-location-fields button{grid-column:1/-1}.estate-location input,.estate-location select{font-size:16px}}
+
+#estateRegionStatus{font-size:12px;color:#61727c;line-height:1.5;margin:8px 0 0}.card .address{overflow-wrap:anywhere}
+
+/* Equal space for browsing listings and exploring the map. */
+@media(min-width:801px){
+ #content.content:not(.table-mode):not(.tiles-mode){grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;grid-template-rows:minmax(350px,1fr) auto}
+ #content.content:not(.table-mode):not(.tiles-mode)>.results{grid-column:1;grid-row:1;min-width:0}
+ #content.content:not(.table-mode):not(.tiles-mode)>.map-wrap{grid-column:2;grid-row:1;min-width:0}
+ #content.content>.property-insights{grid-column:1/-1;grid-row:2;max-height:240px}
+}
+
+/* A taller map and bounded listing column give Africa a complete initial view. */
+@media(min-width:801px){
+ body .shell{height:auto!important;min-height:1200px}
+ body .workspace{overflow:visible}
+ #content.content:not(.table-mode):not(.tiles-mode){flex:none;grid-template-rows:640px auto!important;overflow:visible}
+ #content.content:not(.table-mode):not(.tiles-mode)>.map-wrap{height:640px!important;min-height:640px}
+ #content.content:not(.table-mode):not(.tiles-mode)>.results{height:640px!important;max-height:640px;overflow-y:auto}
+}
+@media(max-width:800px){#content.content>.map-wrap{height:520px!important;min-height:520px}}
+.entry-modal #listingForm .estate-entry-step{min-width:0;width:100%;padding:0;margin:0;border:0;grid-column:1/-1}
+.entry-modal #listingForm .estate-entry-step[hidden]{display:none!important}
+.entry-modal .estate-entry-step legend{font-size:17px;font-weight:650;color:#176f73;margin:0 0 8px;padding:0}
+.entry-modal .estate-step-progress{grid-column:1/-1;font-size:12px;color:#176f73;background:#edf6f2;border-radius:9px;padding:9px 12px;margin:12px 0}
+.entry-modal #estateDetailsStep{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}
+.entry-modal #estateDetailsStep>legend,.entry-modal #estateDetailsStep>label:has([name=title]),.entry-modal #estateDetailsStep>label:has([name=city]),.entry-modal #estateDetailsStep>label:has(textarea),.entry-modal .estate-step-actions{grid-column:1/-1}
+.entry-modal .estate-step-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:14px;padding:10px 0 0;background:white}
+.entry-modal .estate-step-actions button{min-height:44px;padding:11px 18px;border:1px solid #218b8c;border-radius:10px;color:#176f73;background:white;white-space:nowrap}
+.entry-modal .estate-step-actions .solid{background:#218b8c;color:white}
+.entry-modal .estate-photo-actions{display:flex!important;flex-wrap:nowrap!important;align-items:center;gap:10px;min-width:0;width:100%;margin-bottom:12px}
+.entry-modal .estate-photo-actions #estateTakePicture{display:inline-flex!important;align-items:center;justify-content:center;flex:0 0 44px;width:44px;min-width:44px;min-height:44px;height:44px;padding:9px;border:1px solid #218b8c;border-radius:10px;background:#edf6f2;color:#176f73}
+.entry-modal .estate-photo-actions>span{flex:none;white-space:nowrap;color:#61727c;font-size:12px}
+.entry-modal .estate-photo-actions #listingPhotos{min-width:0!important;flex:1 1 0;width:0!important;margin:0;font-size:12px!important;padding:6px!important;white-space:nowrap;overflow:hidden}
+.entry-modal .estate-photo-actions input::file-selector-button{font-size:12px;padding:8px;border:1px solid #cbdad4;border-radius:7px;background:#f4f7f2;color:#173c37;cursor:pointer}
+.entry-modal .estate-price-review{font-size:12px;color:#176f73;line-height:1.5}
+@media(max-width:480px){.entry-modal .estate-entry-step label{font-size:12px}.entry-modal .estate-step-actions button{padding:10px 12px;min-width:0}.entry-modal .estate-photo-actions{gap:7px}}
+
+/* Two-step property entry stays inside the mobile viewport. */
+.entry-modal #entryBody,.entry-modal #listingForm,.entry-modal #listingForm label{min-width:0;max-width:100%}
+.entry-modal #listingForm :is(input,select,textarea){box-sizing:border-box;min-width:0;max-width:100%;width:100%}
+@media(max-width:800px){
+ dialog.entry-modal{box-sizing:border-box;width:calc(100% - 16px)!important;max-width:600px!important;max-height:calc(100dvh - 16px)!important;padding:12px!important;margin:auto;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scroll-padding:12px}
+ .entry-modal h2{font:600 21px/1.2 Arial!important;margin:6px 0 10px!important}
+ .entry-modal #entryBody>p{font:400 12px/1.4 Arial!important;margin:6px 0 10px}
+ .entry-modal #estateDetailsStep{gap:0 8px}
+ .entry-modal .estate-entry-step label{font-size:12px;margin:7px 0;gap:4px}
+ .entry-modal .estate-entry-step :is(input,select,textarea){font-size:16px;line-height:1.3;padding:10px;min-height:44px;margin:0}
+ .entry-modal .estate-entry-step textarea{min-height:64px;height:64px}
+ .entry-modal .estate-step-actions{position:sticky;bottom:-12px;z-index:3;padding:9px 0;background:#fff;border-top:1px solid #e1e9e4;gap:8px}
+ .entry-modal .estate-step-actions button{flex:1;min-width:0;min-height:44px;padding:10px 8px;font-size:13px;white-space:normal}
+ .entry-modal .estate-step-progress{font-size:11px;padding:7px 9px;margin:8px 0}
+ .entry-modal .estate-entry-step legend{font-size:15px;margin-bottom:4px}
+ .entry-modal .entry-actions{gap:6px}.entry-modal .entry-actions button{font-size:12px;padding:9px 6px}
+}
+
+/* The status wrapper is the grid item; its map must stretch to that width. */
+#content.content>.sieg-map-status-column{min-width:0;width:100%;max-width:100%}
+#content.content>.sieg-map-status-column>.map-wrap{width:100%!important;min-width:0;max-width:100%;box-sizing:border-box}
+#content.content.table-mode>.sieg-map-status-column,#content.content.tiles-mode>.sieg-map-status-column{display:none!important}
+@media(min-width:801px){#content.content:not(.table-mode):not(.tiles-mode)>.sieg-map-status-column{grid-column:2;grid-row:1;align-self:start}}
+/* The outer Estates page supplies the shared gutter. */
+:root body{padding:0!important}
+:root body>.smart-search,:root body>.workspace{box-sizing:border-box;width:100%;max-width:none;margin-inline:0}

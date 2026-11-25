@@ -1,0 +1,226 @@
+[
+  {
+    "id": "T01",
+    "name": "Surveyor specialist 01",
+    "role": "Surveyors",
+    "location": "Manzini",
+    "availability": "Available now",
+    "skills": [
+      "Boundary surveying",
+      "Topographic mapping",
+      "Site setting-out"
+    ],
+    "initial": "SU",
+    "experience": 4
+  },
+  {
+    "id": "T02",
+    "name": "Surveyor specialist 02",
+    "role": "Surveyors",
+    "location": "Mbabane",
+    "availability": "Within 2 weeks",
+    "skills": [
+      "Boundary surveying",
+      "Topographic mapping",
+      "Site setting-out"
+    ],
+    "initial": "SU",
+    "experience": 5
+  },
+  {
+    "id": "T15",
+    "name": "Draughtsman specialist 01",
+    "role": "Draughtsmen",
+    "location": "Manzini",
+    "availability": "Available now",
+    "skills": [
+      "Technical drawings",
+      "CAD drafting",
+      "Building plans"
+    ],
+    "initial": "DR",
+    "experience": 5
+  },
+  {
+    "id": "T16",
+    "name": "Draughtsman specialist 02",
+    "role": "Draughtsmen",
+    "location": "Mbabane",
+    "availability": "Within 2 weeks",
+    "skills": [
+      "Technical drawings",
+      "CAD drafting",
+      "Building plans"
+    ],
+    "initial": "DR",
+    "experience": 6
+  },
+  {
+    "id": "T03",
+    "name": "Bricklayer specialist 01",
+    "role": "Bricklayers",
+    "location": "Mbabane",
+    "availability": "Available now",
+    "skills": [
+      "Blockwork",
+      "Foundations",
+      "Brick repairs"
+    ],
+    "initial": "BR",
+    "experience": 5
+  },
+  {
+    "id": "T04",
+    "name": "Bricklayer specialist 02",
+    "role": "Bricklayers",
+    "location": "Ezulwini",
+    "availability": "Within 2 weeks",
+    "skills": [
+      "Blockwork",
+      "Foundations",
+      "Brick repairs"
+    ],
+    "initial": "BR",
+    "experience": 6
+  },
+  {
+    "id": "T05",
+    "name": "Carpenter specialist 01",
+    "role": "Carpenters",
+    "location": "Ezulwini",
+    "availability": "Available now",
+    "skills": [
+      "Roof framing",
+      "Joinery",
+      "Cabinet installation"
+    ],
+    "initial": "CA",
+    "experience": 6
+  },
+  {
+    "id": "T06",
+    "name": "Carpenter specialist 02",
+    "role": "Carpenters",
+    "location": "Nhlangano",
+    "availability": "Within 2 weeks",
+    "skills": [
+      "Roof framing",
+      "Joinery",
+      "Cabinet installation"
+    ],
+    "initial": "CA",
+    "experience": 7
+  },
+  {
+    "id": "T07",
+    "name": "Plumber specialist 01",
+    "role": "Plumbers",
+    "location": "Nhlangano",
+    "availability": "Available now",
+    "skills": [
+      "Pipe installation",
+      "Leak repairs",
+      "Bathroom fittings"
+    ],
+    "initial": "PL",
+    "experience": 7
+  },
+  {
+    "id": "T08",
+    "name": "Plumber specialist 02",
+    "role": "Plumbers",
+    "location": "Siteki",
+    "availability": "Within 2 weeks",
+    "skills": [
+      "Pipe installation",
+      "Leak repairs",
+      "Bathroom fittings"
+    ],
+    "initial": "PL",
+    "experience": 8
+  },
+  {
+    "id": "T09",
+    "name": "Electrician specialist 01",
+    "role": "Electricians",
+    "location": "Siteki",
+    "availability": "Available now",
+    "skills": [
+      "Wiring",
+      "Lighting installation",
+      "Electrical maintenance"
+    ],
+    "initial": "EL",
+    "experience": 8
+  },
+  {
+    "id": "T10",
+    "name": "Electrician specialist 02",
+    "role": "Electricians",
+    "location": "Manzini",
+    "availability": "Within 2 weeks",
+    "skills": [
+      "Wiring",
+      "Lighting installation",
+      "Electrical maintenance"
+    ],
+    "initial": "EL",
+    "experience": 9
+  },
+  {
+    "id": "T11",
+    "name": "Tiler specialist 01",
+    "role": "Tilers",
+    "location": "Manzini",
+    "availability": "Available now",
+    "skills": [
+      "Floor tiling",
+      "Wall tiling",
+      "Surface preparation"
+    ],
+    "initial": "TI",
+    "experience": 9
+  },
+  {
+    "id": "T12",
+    "name": "Tiler specialist 02",
+    "role": "Tilers",
+    "location": "Mbabane",
+    "availability": "Within 2 weeks",
+    "skills": [
+      "Floor tiling",
+      "Wall tiling",
+      "Surface preparation"
+    ],
+    "initial": "TI",
+    "experience": 10
+  },
+  {
+    "id": "T13",
+    "name": "Housekeeper specialist 01",
+    "role": "Housekeepers",
+    "location": "Mbabane",
+    "availability": "Available now",
+    "skills": [
+      "Home cleaning",
+      "Laundry",
+      "Move-in cleaning"
+    ],
+    "initial": "HO",
+    "experience": 10
+  },
+  {
+    "id": "T14",
+    "name": "Housekeeper specialist 02",
+    "role": "Housekeepers",
+    "location": "Ezulwini",
+    "availability": "Within 2 weeks",
+    "skills": [
+      "Home cleaning",
+      "Laundry",
+      "Move-in cleaning"
+    ],
+    "initial": "HO",
+    "experience": 11
+  }
+]

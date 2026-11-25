@@ -1,0 +1,20 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),{DatabaseSync}=require('node:sqlite');
+const db=new DatabaseSync(':memory:');db.exec(fs.readFileSync('drizzle/0000_siege_operations.sql','utf8'));let now=Date.now();class Clock extends Date{static now(){return now}}
+const DB={prepare(sql){let args=[];return {bind(...a){args=a;return this},async first(){return db.prepare(sql).get(...args)||null},async all(){return {results:db.prepare(sql).all(...args)}},runSync(){const r=db.prepare(sql).run(...args);return {meta:{changes:Number(r.changes)}}},async run(){return this.runSync()}}},async batch(statements){db.exec('BEGIN');try{const results=statements.map(s=>s.runSync());db.exec('COMMIT');return results}catch(e){db.exec('ROLLBACK');throw e}}};
+class Bucket{constructor(){this.items=new Map}async get(k){const t=this.items.get(k);return t===undefined?null:{text:async()=>t,body:t}}async put(k,v,o={}){if(o.onlyIf?.etagDoesNotMatch==='*'&&this.items.has(k))return null;this.items.set(k,String(v));return {etag:'etag'}}async delete(k){this.items.delete(k)}}
+const env={DB,BUCKET:new Bucket},ctx=vm.createContext({crypto,Date:Clock,Request,Response,URL,URLSearchParams,TextEncoder,Uint8Array,DataView,AbortSignal,atob,btoa,console});vm.runInContext(fs.readFileSync('worker/usage.js','utf8')+'\n'+fs.readFileSync('worker/reports.js','utf8')+'\nglobalThis.api=usageAPI;globalThis.reports=reportsAPI;globalThis.grant=usageGrantForReport;',ctx);
+const user={'oai-authenticated-user-id':'free-user'},admin={'oai-authenticated-user-id':'staff','oai-authenticated-user-email':'tss.simelane@gmail.com'};
+async function call(path,body,who=user,api=ctx.api){const r=await api(new Request('https://siege.test/api/'+(api===ctx.api?'analysis/':'reports/')+path,{method:body?'POST':'GET',headers:{...who,Origin:'https://siege.test','Content-Type':'application/json'},body:body?JSON.stringify(body):undefined}),env);return {status:r.status,data:await r.json()}}
+const geometry={type:'Polygon',coordinates:[[[31,-26],[31.01,-26],[31.01,-25.99],[31,-25.99],[31,-26]]]};
+const order=(service='fields')=>({service,geometry,requestId:crypto.randomUUID()});
+const report=(j,method='collection')=>({service:j.service,analysisId:j.id,method,requestId:crypto.randomUUID(),expectedAmount:j.amount,contact:{name:'Client',email:'client@example.com',phone:'76000000',dial:'+268',consent:'on'},files:[{filename:'report.html',content:'<html>Generated AOI report</html>',encoding:'utf8'}]});
+(async()=>{
+ const config=await call('config');assert(config.data.sessionsUnlimited);assert.equal(config.data.policyVersion,3);assert(!('availableSessions' in config.data));assert(!('windowMinutes' in config.data));
+ for(const service of ['fields','eco','hydrology','fields','eco','hydrology','fields']){const created=await call('orders',order(service));assert.equal(created.status,200);assert.equal(created.data.policyVersion,3);const started=await call('start',{id:created.data.id});assert.equal(started.status,200);assert.equal(started.data.expires,null);}
+ const j=(await call('orders',order())).data;await call('start',{id:j.id});now+=7*86400000;const reopened=await call('start',{id:j.id});assert.equal(reopened.status,200);assert.equal(reopened.data.expires,null);
+ assert.equal((await call('start',{id:j.id},{'oai-authenticated-user-id':'other'})).status,404);
+ assert.equal((await call('orders',order(),{})).status,401);
+ const generated=await call('orders',report(j),user,ctx.reports);assert.equal(generated.status,200);assert.equal(generated.data.state,'awaiting_print');assert(generated.data.amount>0,'report fees are separate from unlimited analyses');
+ assert.equal(db.prepare("SELECT count(*) AS n FROM siege_records WHERE kind='analysis_credit'").get().n,0);
+ console.log('PASS: unlimited repeat analyses across all three services, no time expiry, owner isolation, sign-in and report fees retained; no analysis credits or payment unlocks');
+})().catch(e=>{console.error(e);process.exitCode=1});

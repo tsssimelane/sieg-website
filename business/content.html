@@ -1,0 +1,43 @@
+<main id="main" class="business-page">
+<section class="business-hero"><div><div class="service-breadcrumb"><a href="index.html">Home</a> / SIEG Business</div><p class="kicker">09 / GLOBAL BUSINESS DIRECTORY</p><h1>A world of businesses.<br><em>One place to find them.</em></h1><p>Discover companies worldwide, explore their locations and find the right entrance with SIEG Address.</p><div class="business-actions"><a class="btn" href="#manage-business">List your business ↗</a><button id="businessDemo" class="business-secondary" type="button">Explore the demo</button></div></div><aside class="business-plan"><span>PUT YOUR BUSINESS ON THE MAP</span><strong><span id="businessPrice">US$30</span><small>/ location / year</small></strong><p>Start with a free 7-day listing. Keep your logo, contacts and entrance directions visible with an annual subscription.</p><small id="businessPriceNote" class="business-price-note" aria-live="polite">US$30 base price · detecting your local currency…</small><small>No card required for the trial. Address registration is separate.</small></aside></section>
+<section class="business-directory" aria-labelledby="directoryTitle"><div class="business-section-heading"><div><p class="kicker">DISCOVER & CONNECT</p><h2 id="directoryTitle">Find a business, anywhere.</h2></div><span id="businessMode" class="business-pill">Live directory</span></div><form id="businessSearch" class="business-search"><label>Business or place<input id="businessQuery" type="search" placeholder="Search name, activity or town" maxlength="120"></label><label>Country<input id="businessCountry" placeholder="All countries" maxlength="80" list="businessCountries"><datalist id="businessCountries"></datalist></label><label>Category<select id="businessCategory"><option value="">All categories</option></select></label><label id="businessTradeFilter" hidden>Trade<select id="businessTrade"><option value="">All trades</option></select></label><button class="btn" type="submit">Find businesses ↗</button></form>
+<p id="businessDemoNotice" class="business-notice" hidden>DEMO · Fictional companies and illustrative locations. These are not registered businesses or live contact details. <button id="businessLive" type="button">Return to live directory</button></p>
+<div class="business-workspace"><aside id="businessResults" class="business-results" aria-label="Business results"><p id="businessCount" role="status" aria-live="polite">Loading businesses…</p><div id="businessCards"></div><button id="businessMore" type="button" hidden>Load more businesses</button></aside><div class="business-map-column"><div class="business-map-frame"><div id="businessMap" aria-label="Global distribution of businesses"></div></div><p class="business-map-note" id="businessMapStatus" role="status">Zoom in to see company logos. Select a marker or a business to open its profile.</p></div></div>
+</section>
+<section id="manage-business" class="business-management" aria-labelledby="manageTitle"><div><p class="kicker">YOUR BUSINESS, CONNECTED</p><h2 id="manageTitle">From an address to a public profile.</h2><p>Your SIEG Address stays in your private register. Choose a business entrance, add your public details and start your one-time 7-day listing. After the trial, an active annual subscription keeps it visible.</p><a href="geocoding.html?for=business#entranceForm" class="inline-link">Register a business address first ↗</a><ol class="business-steps"><li>Save a business address in SIEG Address.</li><li>Create your profile and upload your company logo.</li><li>Publish free for 7 days, then subscribe annually.</li></ol><p class="business-notice">When a listing expires, it disappears from public search and the map. Your address and profile remain saved so you can return later.</p></div><div class="business-owner-card"><div id="businessSignIn" hidden><h3>Manage your business</h3><p>Sign in to connect a saved SIEG Address and manage your profile.</p><a class="btn" href="/login?return_to=%2Fbusiness%23manage-business">Sign in to SIEG ↗</a></div><div id="businessOwner" hidden>
+  <h3 class="business-profile-title">Business profile</h3>
+  <label>Your saved business profiles
+    <select id="businessMyProfiles"><option value="">Create a new profile</option></select>
+  </label>
+  <form id="businessForm">
+    <fieldset class="business-profile-group">
+      <legend>Business entrance</legend>
+      <label>Saved SIEG Address
+        <select id="businessAddress" required aria-describedby="businessNoAddress"><option value="">Choose a saved business address</option></select>
+      </label>
+      <p id="businessNoAddress" class="business-address-note" hidden>No saved business entrance. <a href="geocoding.html?for=business#entranceForm">Register one in SIEG Address</a> to continue here automatically after saving.</p>
+    </fieldset>
+    <fieldset class="business-profile-group">
+      <legend>Company details</legend>
+      <div class="business-form-grid">
+        <label class="business-wide">Company name<input name="name" required maxlength="120" autocomplete="organization"></label>
+        <label>Category<select name="category" required></select></label>
+        <label>Trade <span class="business-optional">(optional)</span><select name="trade"><option value="">All trades in this category</option></select></label>
+        <label class="business-wide">About your business<textarea name="description" maxlength="1200" rows="3" placeholder="What do you do? Who do you serve?"></textarea></label>
+      </div>
+    </fieldset>
+    <fieldset class="business-profile-group">
+      <legend>Public contact and logo</legend>
+      <div class="business-form-grid">
+        <label>Public phone<input name="phone" type="tel" placeholder="+268 7600 0000" required maxlength="30"></label>
+        <label>Public email<input name="email" type="email" required maxlength="254"></label>
+        <label class="business-wide">Website <span class="business-optional">(optional)</span><input name="website" type="url" placeholder="https://yourbusiness.com" maxlength="300"></label>
+        <label class="business-wide">Company logo <span class="business-optional">(optional)</span><input id="businessLogo" type="file" accept="image/png,image/jpeg,image/webp"><small>PNG, JPEG or WebP · up to 5 MB. Used on your profile and close-up map markers.</small></label>
+      </div>
+    </fieldset>
+    <label class="business-check business-profile-consent"><input name="publishConsent" type="checkbox"><span>I am authorised to publish this company’s name, logo, contact details and entrance location in the directory.</span></label>
+    <div class="business-profile-actions"><button class="btn" type="submit">Save business profile</button></div>
+  </form>
+  <div id="businessSubscription" hidden><p id="businessSubscriptionStatus" class="business-notice"></p><button id="businessTrial" class="btn" type="button">Publish free for 7 days</button><label class="business-check"><input id="businessRenewalConsent" type="checkbox"><span>I agree to annual automatic renewal at <span id="businessRenewalPrice">US$30</span> per location until I cancel. This is separate from my address registration or business address pack.</span></label><div class="business-actions"><button id="businessSubscribe" class="btn" type="button">Subscribe annually ↗</button><button id="businessBillingPortal" type="button" hidden>Manage billing ↗</button><button id="businessCancelRenewal" type="button" hidden>Stop annual renewal</button><button id="businessSync" type="button">Refresh payment status</button></div><p id="businessBillingUnavailable" class="business-notice" hidden>Annual checkout is not available yet. You can save your profile and start its free 7-day listing. Contact support@sieg.ltd for subscription availability.</p></div></div><p id="businessOwnerStatus" role="status" aria-live="polite"></p></div></section>
+<dialog id="businessProfile" class="business-profile-dialog" aria-labelledby="businessProfileTitle"><button id="businessProfileClose" class="business-profile-close" type="button" aria-label="Close company profile">×</button><div id="businessProfileContent"></div></dialog>
+</main>

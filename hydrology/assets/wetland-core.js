@@ -1,0 +1,13 @@
+(function(root){'use strict';
+const palette=['eee8dc','2878b5','55b6a7','075b50'];
+const labels=['Other observed land','Open-water screening','Possible wetland vegetation','Reference-supported wetland vegetation'];
+function period(year,now=new Date()){const y=Number(year);if(!Number.isInteger(y)||y<2013||y>now.getUTCFullYear())throw Error('Choose an analysis year from 2013 to the current year.');const start=y+'-01-01',current=y===now.getUTCFullYear(),through=current?now.toISOString().slice(0,10):y+'-12-31',end=current?new Date(Date.UTC(y,now.getUTCMonth(),now.getUTCDate()+1)).toISOString().slice(0,10):(y+1)+'-01-01';return {start,end,through};}
+function classify({nir,swir2,ndvi,ndmi,mndwi,reference=false,mode='and'}){if(![nir,swir2,ndvi,ndmi,mndwi].every(Number.isFinite))return null;if(mndwi>.15&&ndvi<.2)return 1;const wet=mode==='or'?nir<=.1735||swir2<=.1035:nir<=.1735&&swir2<=.1035;return wet&&ndvi>=.2&&ndmi>.1?(reference?3:2):0;}
+function build(ee,collection,region,mode){
+ const observations=collection.map(img=>{const qa=img.select('QA_PIXEL'),mask=qa.bitwiseAnd(63).eq(0).and(img.select('QA_RADSAT').eq(0));const sr=img.select(['SR_B3','SR_B4','SR_B5','SR_B6','SR_B7'],['green','red','nir','swir1','swir2']).multiply(.0000275).add(-.2).updateMask(mask);const valid=sr.gte(0).and(sr.lte(1)).reduce(ee.Reducer.min());const x=sr.updateMask(valid);const ratio=(a,b)=>x.expression('(a-b)/(a+b)',{a:x.select(a),b:x.select(b)}).updateMask(x.select(a).add(x.select(b)).abs().gt(.000001));const ndvi=ratio('nir','red'),ndmi=ratio('nir','swir1'),mndwi=ratio('green','swir1');const lowNir=x.select('nir').lte(.1735),lowSwir=x.select('swir2').lte(.1035),wiw=mode==='or'?lowNir.or(lowSwir):lowNir.and(lowSwir);const water=mndwi.gt(.15).and(ndvi.lt(.2));const wet=wiw.and(ndvi.gte(.2)).and(ndmi.gt(.1)).and(water.not());return water.rename('water').addBands(wet.rename('wet')).toFloat();});
+ const projection=ee.Image(collection.first()).select('SR_B5').projection();
+ const count=observations.select('wet').count(),valid=count.gte(3);const freq=observations.mean();const reference=ee.ImageCollection('ESA/WorldCover/v200').first().select('Map');const support=reference.eq(90).or(reference.eq(95)).unmask(0);const water=freq.select('water').gte(.25),wet=freq.select('wet').gte(.25).and(water.not());const image=ee.Image(0).setDefaultProjection(projection).where(water,1).where(wet,2).where(wet.and(support),3).rename('wetland_class').updateMask(valid).clip(region);
+ return {image,count,projection,frequency:freq,valid:valid.clip(region)};
+}
+root.SiegWetlandCore={period,classify,build,palette,labels};if(typeof module!=='undefined')module.exports=root.SiegWetlandCore;
+})(typeof window==='undefined'?globalThis:window);

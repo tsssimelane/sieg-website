@@ -1,0 +1,12 @@
+:root body .sieg-location-choice{display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 0!important;border:0!important;background:transparent!important;min-width:0;text-align:center}
+:root body button.sieg-current-location{display:inline-grid!important;place-items:center!important;flex:none!important;width:56px!important;max-width:56px!important;height:56px!important;min-height:56px!important;padding:0!important;margin:0!important;border:1px solid #168b8d!important;border-radius:16px!important;background:#168b8d!important;color:white!important;box-shadow:0 4px 12px #0c55551c;cursor:pointer}
+:root body button.sieg-current-location:hover{background:#116f73!important;transform:translateY(-1px)}
+:root body button.sieg-current-location:focus-visible{outline:3px solid #d7ac62;outline-offset:4px}
+:root body button.sieg-current-location:disabled{opacity:.6;cursor:wait;transform:none}
+:root body .sieg-location-caption{font:600 14px/1.4 Arial,sans-serif;color:#143649;margin:0!important}
+:root body .sieg-location-choice .sieg-location-status{font:400 13px/1.5 Arial,sans-serif;color:#526c78;max-width:100%;overflow-wrap:anywhere;margin:0!important}
+:root body select[data-location-context][hidden]{display:none!important}
+@media(prefers-reduced-motion:reduce){:root body button.sieg-current-location:hover{transform:none}}
+
+:root body #fieldsAOISection .agri-polygon-card,:root body #ecoAOISection .area-draw-card,:root body #hydroBoundaryActions,:root body #irAOISection>.ir-pair{margin-top:18px!important}
+:root body #fieldsAOISection>.aoi-upload,:root body #ecoAOISection>.aoi-upload,:root body #hydroAOISection>.aoi-upload,:root body #irAOISection>.aoi-upload{margin-top:20px!important}

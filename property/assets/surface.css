@@ -1,0 +1,12 @@
+/* Shared Enviro-intelligence surface styling */
+:root{--ink:#0b2338;--green:#218b8c;--muted:#61727c;--line:#d6dfdc;--paper:#f4f5ef;--gold:#d7ac62}
+body{padding:28px 7%;background:var(--paper)}
+.shell{border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 12px 30px #122f4410;background:white}
+.smart-search{background:#eee8dc}.smart-search,.intro{padding:23px 24px}
+input,select{border-radius:4px;background:#fafbf9}.outline,.solid{border-radius:5px}
+.results{padding:14px;background:#f7f8f5}.card{border:1px solid var(--line);border-radius:8px;margin-bottom:12px;padding:20px;background:white}
+.card:hover,.card.selected{background:#eef6f3;border-color:#218b8c}.tiles-mode .card{border-radius:8px;margin:0}
+.art,.details-grid div{border-radius:5px}.map-tools,.map-caption{border-radius:7px}.map-tools button{border-radius:5px}
+.tabs{border-radius:8px}.tabs button{border-radius:5px}.note{border-radius:8px;background:#eee8dc}
+dialog{border-radius:12px;box-shadow:0 20px 80px #102a4330}dialog::backdrop{background:#0b233880}
+@media(max-width:800px){body{padding:18px 4%}.smart-search,.intro{padding:18px}.shell{height:auto}.results{padding:12px}}

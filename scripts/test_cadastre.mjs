@@ -1,0 +1,21 @@
+import {polygonize} from '../resources/cadastre-core.js';
+import assert from 'node:assert/strict';
+const metres=1/111195;
+const network=(...lines)=>({type:'MultiLineString',coordinates:lines.map(line=>line.map(p=>p.map(v=>v*metres)))});
+const square=(x,y,s)=>[[x,y],[x+s,y],[x+s,y+s],[x,y+s],[x,y]];
+const ringCounts=r=>r.polygons.features.map(f=>f.geometry.coordinates.length);
+
+const divided=polygonize(network(square(0,0,10),[[5,-2],[5,12]],[[0,0],[10,0]],[[10,5],[12,5]]));
+assert.deepEqual(ringCounts(divided),[1,1]);
+assert.equal(divided.report.duplicates,2);
+assert.equal(divided.issues.features.length,3);
+const gap=network([[.3,0],[10,0],[10,10],[0,10],[0,0]]);
+assert.equal(polygonize(gap).report.polygons,0);
+assert.equal(polygonize(gap,.4).report.polygons,1);
+assert.equal(polygonize(network(square(0,0,10),[[5,.2],[5,9.8]]),.25).report.polygons,2);
+assert.deepEqual(ringCounts(polygonize(network(square(0,0,30),square(5,5,10),[[10,5],[10,15]],square(20,20,4)))),[1,1,1,3]);
+assert.deepEqual(ringCounts(polygonize(network(square(0,0,10),[[0,5],[3,3],[4,5],[3,7],[0,5]]))),[1,2]);
+assert.equal(polygonize(network([[0,0],[10,10],[0,10],[10,0],[0,0]])).report.polygons,2);
+assert.throws(()=>polygonize({type:'Point',coordinates:[0,0]}),/line layer/);
+assert.throws(()=>polygonize(gap,-1),/snap tolerance/);
+console.log('PASS: crossings, overlaps, dangles, snap gaps and undershoots, nested boundaries, touching rings, self-crossings and validation.');

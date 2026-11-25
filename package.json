@@ -1,0 +1,21 @@
+{
+  "name": "sieg-cloudflare-launch",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/run-build.mjs",
+    "check": "node --check cloudflare-dist/app.js && node --test cloudflare/*.test.js",
+    "dry-run": "wrangler deploy --dry-run",
+    "deploy": "wrangler deploy",
+    "update:config": "node scripts/upgrade-config.mjs",
+    "release:staging": "node scripts/release.mjs staging",
+    "release:production": "node scripts/release.mjs production"
+  },
+  "dependencies": {
+    "jose": "^6.1.0",
+    "jsonc-parser": "3.3.1"
+  },
+  "devDependencies": {
+    "wrangler": "^4.34.0"
+  }
+}

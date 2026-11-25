@@ -1,0 +1,10 @@
+/* Readable, shared step headings for Irrigate, Hydrology and Eco. */
+:root body .eyebrow.sieg-numbered-step{display:flex!important;align-items:center;gap:12px!important;min-width:0;letter-spacing:normal!important;text-transform:none!important;color:#16767c!important;font:700 14px/1.5 Arial,Helvetica,sans-serif!important}
+:root body .sieg-numbered-step>.sieg-step-badge{display:inline-grid!important;place-items:center;flex:0 0 30px!important;width:30px!important;height:30px!important;min-width:30px!important;border-radius:50%!important;background:#218b8c!important;color:#fff!important;letter-spacing:normal!important;font:700 15px/1 Arial,Helvetica,sans-serif!important}
+:root body .sieg-numbered-step>.sieg-step-label{display:block;min-width:0;color:inherit;font:inherit!important;letter-spacing:normal!important;text-transform:none!important;overflow-wrap:break-word}
+:root body summary>.sieg-numbered-step{display:inline-flex!important;vertical-align:middle;max-width:calc(100% - 24px);margin:0!important}
+
+/* One shared step style across service workflows and guided panels. */
+:root body :is(.sieg-numbered-step,.transit-step){display:flex!important;align-items:center!important;gap:12px!important;color:#16767c!important;font:700 15px/1.5 Arial,Helvetica,sans-serif!important;letter-spacing:normal!important;text-transform:none!important}
+:root body :is(.sieg-step-badge,.sieg-step-number,.transit-step>span){display:inline-grid!important;place-items:center!important;box-sizing:border-box!important;flex:0 0 30px!important;width:30px!important;min-width:30px!important;height:30px!important;border:0!important;border-radius:50%!important;background:#218b8c!important;color:#fff!important;font:700 16px/1 Arial,Helvetica,sans-serif!important;letter-spacing:normal!important}
+:root body .sieg-procedure li strong{color:#16767c!important;font-weight:700!important}

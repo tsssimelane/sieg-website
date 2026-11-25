@@ -1,0 +1,314 @@
+{
+  "fields": {
+    "monitoring": [
+      {
+        "label": "NDVI"
+      },
+      {
+        "label": "Root-Zone Moisture"
+      },
+      {
+        "label": "Pest & disease stress"
+      }
+    ],
+    "recommendations": [
+      {
+        "label": "Crops",
+        "value": "Crops"
+      },
+      {
+        "label": "Vegetables",
+        "value": "Vegetables"
+      },
+      {
+        "label": "Fruit trees",
+        "value": "Fruit trees"
+      }
+    ],
+    "soil": [
+      {
+        "label": "Soil texture map",
+        "actionLabel": "Soil texture"
+      },
+      {
+        "label": "Soil irrigatability",
+        "actionLabel": "Soil irrigatability"
+      }
+    ],
+    "warning": [
+      {
+        "label": "Drought-development alerts",
+        "layerName": "Drought development / root-zone dryness"
+      },
+      {
+        "label": "Storm potential",
+        "layerName": "Storm potential"
+      },
+      {
+        "label": "Heatwave potential",
+        "layerName": "Heatwave potential"
+      }
+    ],
+    "suitability": [
+      {
+        "label": "Land suitability",
+        "actionLabel": "Land suitability"
+      },
+      {
+        "label": "Slope",
+        "actionLabel": "Slope"
+      }
+    ],
+    "weather": [
+      {
+        "label": "Climate observations",
+        "auto": true
+      }
+    ]
+  },
+  "eco": {
+    "0": [
+      {
+        "label": "Land cover",
+        "value": "Land cover"
+      },
+      {
+        "label": "Cover change",
+        "value": "Cover change"
+      }
+    ],
+    "1": [
+      {
+        "label": "Biodiversity Intactness Index (BII)",
+        "value": "Biodiversity Intactness Index (BII)"
+      },
+      {
+        "label": "Ecosystem condition",
+        "value": "Ecosystem condition"
+      },
+      {
+        "label": "Habitat extent and loss",
+        "value": "Habitat extent and loss"
+      },
+      {
+        "label": "Habitat fragmentation",
+        "value": "Habitat fragmentation"
+      },
+      {
+        "label": "Canopy height",
+        "value": "Canopy height"
+      }
+    ],
+    "6": [
+      {
+        "label": "Land productivity",
+        "value": "Land productivity"
+      },
+      {
+        "label": "Land-cover degradation",
+        "value": "Land-cover degradation"
+      },
+      {
+        "label": "Persistent bare ground",
+        "value": "Persistent bare ground"
+      },
+      {
+        "label": "Erosion susceptibility",
+        "value": "Erosion susceptibility"
+      },
+      {
+        "label": "Soil organic carbon",
+        "value": "Soil organic carbon"
+      },
+      {
+        "label": "Restoration & recovery",
+        "value": "Restoration & recovery"
+      }
+    ],
+    "2": [
+      {
+        "label": "Carbon monoxide",
+        "value": "Carbon monoxide"
+      },
+      {
+        "label": "Nitrogen dioxide (NO\u2082)",
+        "value": "Nitrogen dioxide (NO\u2082)"
+      },
+      {
+        "label": "Absorbing aerosol index",
+        "value": "Absorbing aerosol index"
+      }
+    ],
+    "4": [
+      {
+        "label": "Built-up cover",
+        "value": "Built-up cover"
+      },
+      {
+        "label": "Built-up expansion",
+        "value": "Built-up expansion"
+      },
+      {
+        "label": "Built-up probability",
+        "value": "Built-up probability"
+      },
+      {
+        "label": "30-day activity",
+        "value": "30-day activity"
+      }
+    ],
+    "5": [
+      {
+        "label": "Recent thermal detections",
+        "value": "Recent thermal detections"
+      },
+      {
+        "label": "Peak fire radiative power",
+        "value": "Peak fire radiative power"
+      },
+      {
+        "label": "Latest detection age",
+        "value": "Latest detection age"
+      },
+      {
+        "label": "30-day activity",
+        "value": "30-day activity"
+      }
+    ]
+  },
+  "hydrology": {
+    "Water Availability": [
+      {
+        "label": "Catchment wetness",
+        "hydroAction": "wetness"
+      },
+      {
+        "label": "Surface moisture (0\u20135 cm)",
+        "hydroAction": "surface"
+      },
+      {
+        "label": "Root-zone moisture (0\u2013100 cm)",
+        "hydroAction": "root"
+      },
+      {
+        "label": "Drought development",
+        "hydroAction": "drought"
+      },
+      {
+        "label": "Rainfall",
+        "hydroAction": "product:rain"
+      },
+      {
+        "label": "Surface-water screening",
+        "hydroAction": "product:water"
+      },
+      {
+        "label": "Historical water occurrence (%)",
+        "hydroAction": "product:occurrence"
+      },
+      {
+        "label": "Historical water seasonality (months)",
+        "hydroAction": "product:seasonality"
+      },
+      {
+        "label": "Water-balance summary",
+        "hydroAction": "balance"
+      }
+    ],
+    "Flood-risk Screening": [
+      {
+        "label": "Runoff potential",
+        "hydroAction": "runoff"
+      },
+      {
+        "label": "Forecast rainfall (24\u201372 hours)",
+        "hydroAction": "forecast"
+      },
+      {
+        "label": "Terrain slope",
+        "hydroAction": "product:slope"
+      },
+      {
+        "label": "Catchment boundary and context",
+        "hydroAction": "basins"
+      },
+      {
+        "label": "Drainage network and outlet delineation",
+        "hydroAction": "delineation"
+      },
+      {
+        "label": "Historical water evidence",
+        "hydroAction": "product:occurrence"
+      }
+    ],
+    "Catchment Health": [
+      {
+        "label": "Catchment boundary and context",
+        "hydroAction": "basins"
+      },
+      {
+        "label": "Drainage network and outlet delineation",
+        "hydroAction": "delineation"
+      },
+      {
+        "label": "Built-up land",
+        "hydroAction": "product:built"
+      },
+      {
+        "label": "Cropland",
+        "hydroAction": "product:crops"
+      },
+      {
+        "label": "Infiltration restoration opportunities",
+        "hydroAction": "product:restoration"
+      },
+      {
+        "label": "Surface recharge favourability",
+        "hydroAction": "product:recharge"
+      },
+      {
+        "label": "Turbidity screening (NDTI)",
+        "hydroAction": "product:ndti"
+      }
+    ],
+    "Flood Watch": [
+      {
+        "label": "River-flow estimate",
+        "hydroAction": "river-flow"
+      },
+      {
+        "label": "Reservoir-volume estimate",
+        "hydroAction": "reservoir"
+      },
+      {
+        "label": "River threshold scenario",
+        "hydroAction": "river-scenario"
+      },
+      {
+        "label": "Dam threshold scenario",
+        "hydroAction": "dam-scenario"
+      },
+      {
+        "label": "Ground-record comparison",
+        "hydroAction": "ground"
+      },
+      {
+        "label": "Data export",
+        "hydroAction": "export"
+      }
+    ]
+  },
+  "irrigation": {
+    "irrigation": [
+      {
+        "label": "Laterals and furrows"
+      },
+      {
+        "label": "Supply and distribution pipes"
+      },
+      {
+        "label": "Equipment and sprinklers"
+      }
+    ]
+  }
+}

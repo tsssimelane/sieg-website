@@ -1,0 +1,28 @@
+#mapping .capture-map-stage{position:relative;overflow:hidden;border:1px solid #218b8c;border-radius:18px;background:#acd4df;isolation:isolate}
+#mapping .capture-map-stage #fieldMap{border:0!important;border-radius:0!important;margin:0!important;width:100%!important;height:clamp(560px,calc(100dvh - 220px),850px)!important;min-height:560px!important}
+#mapping .capture-map-panel{position:absolute;inset:0 auto 0 0;z-index:800;width:370px;max-width:calc(100% - 56px);display:flex;flex-direction:column;background:#f5f9f5;border-right:1px solid #bdd7d2;box-shadow:6px 0 20px #0c354516;transform:translateX(0);transition:transform .24s ease;overflow:clip}
+#mapping .capture-map-panel.is-closed{transform:translateX(-100%);pointer-events:none}
+#mapping .capture-panel-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:56px;padding:8px 16px;border-bottom:1px solid #d3e2dc;flex:none}
+:root body #mapping .capture-panel-heading button{min-width:40px;min-height:40px;padding:6px!important;font-size:22px!important;border:0;background:transparent;color:#147f83}
+#mapping .capture-panel-scroll{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-color:#218b8c #e6eeea;padding:16px}
+#mapping .capture-panel-scroll :is(.field-setup-panel,.field-workflow,.field-workflow-body,.field-entry-panel,.field-capture-panel,.field-export-panel){display:block!important;width:100%!important;margin:0 0 16px!important;box-sizing:border-box;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important}
+#mapping .capture-panel-scroll .resource-fields{display:block!important}
+#mapping .capture-panel-scroll :is(input,select,textarea,button,label,fieldset){box-sizing:border-box;min-width:0;max-width:100%}
+#mapping .capture-panel-scroll :is(input:not([type=checkbox]),select,textarea){width:100%!important}
+#mapping .capture-panel-scroll :is(label,select,details){margin-bottom:12px}
+#mapping .capture-panel-scroll :is(button,summary){white-space:normal!important;overflow-wrap:anywhere}
+#mapping .capture-panel-scroll :is(.field-entry-header,.field-capture-actions,.field-export-actions){display:flex;flex-wrap:wrap;gap:10px}
+#mapping .capture-panel-scroll .field-entry-header h3{font-size:16px!important}
+#mapping #fieldWorkflow>summary{display:none!important}
+#mapping .capture-fields{padding-bottom:16px;margin-bottom:18px;border-bottom:1px solid #ccdeda}
+#mapping .capture-fields details{padding:12px;border:1px solid #bdd7d2;border-radius:12px;background:white}
+#mapping .capture-panel-scroll :is(p,small){font-size:12px!important;line-height:1.5!important}
+#mapping .capture-panel-scroll .field-gps-badge{display:none}
+#mapping .resource-map-toolbar{gap:10px;flex-wrap:wrap}
+@media(max-width:600px){#mapping .capture-map-panel{width:330px}#mapping .capture-map-stage #fieldMap{height:calc(100dvh - 180px)!important;min-height:480px!important}:root body .toolbox-window-body>#mapping{padding:10px!important}#mapping>.resource-tool-intro{display:none}}
+@media(prefers-reduced-motion:reduce){#mapping .capture-map-panel{transition:none}}
+
+/* Keep the drawer handle anchored to the map edge in both states. */
+:root body #mapping #fieldPanelsToggle.capture-map-tab{position:absolute!important;left:0!important;top:14px!important;z-index:850!important;display:flex!important;align-items:center!important;justify-content:center!important;writing-mode:vertical-rl;min-width:42px!important;width:42px!important;min-height:156px!important;height:auto!important;padding:14px 10px!important;margin:0!important;border:1px solid #9bcac3!important;border-left:0!important;border-radius:0 12px 12px 0!important;background:#fff!important;color:#0c737b!important;font-size:13px!important;font-weight:700!important;line-height:1.3!important;letter-spacing:.03em;white-space:nowrap!important;box-shadow:3px 3px 12px #12354616;cursor:pointer}
+#mapping .capture-map-panel{box-sizing:border-box;padding-left:44px;width:400px}
+@media(max-width:600px){#mapping .capture-map-panel{width:345px;max-width:calc(100% - 44px)}}

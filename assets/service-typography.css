@@ -1,0 +1,16 @@
+/* Shared service typography: body 16, controls 14, notes 12. */
+:root body :is(main,.service-main,.geo-main,.talent-page){font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.6}
+:root body :is(main,.geo-main,.talent-page) :is(input,select,textarea,label){font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5}
+:root body :is(main,.geo-main,.talent-page) :is(small,.hint,.note,.muted,.mini-note){font-size:12px;line-height:1.5}
+:root body :is(main,dialog) :is(button,.btn,.inline-link,.original-link){font-family:Arial,Helvetica,sans-serif!important;font-size:14px!important;line-height:1.5!important;white-space:normal!important;min-height:44px;max-width:100%;box-sizing:border-box}
+:root body :is(main,dialog) button :is(span,strong,b){font-size:inherit!important;white-space:normal!important}
+:root body :is(.talent-actions,.geo-tabs,.geo-actions){flex-wrap:wrap;gap:8px}
+:root body :is(.talent-actions,.geo-tabs,.geo-actions)>:is(button,.btn){flex-shrink:0}
+
+:root body :is(main,dialog) :is(button,[role="tab"],.btn,.original-link):not([hidden]){display:inline-flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;gap:6px}
+
+.estate-account-section{margin:24px 3% 40px;padding:30px;border:1px solid #e1d9cb;border-radius:20px;background:#eee8dc;color:#102a43;display:flex;align-items:center;justify-content:space-between;gap:28px}.estate-account-section h2{font:500 24px/1.35 Arial;margin:12px 0}.estate-account-section p{font-size:14px;line-height:1.6;color:#526570}.estate-account-section .kicker{font-size:11px;letter-spacing:1.3px}.estate-account-section #estateAccountOpen{flex:none;min-height:48px;background:#218b8c;border:1px solid #218b8c;border-radius:10px;color:white;padding:15px 20px;cursor:pointer;margin:0}@media(max-width:760px){.estate-account-section{flex-direction:column;align-items:stretch;padding:22px}.estate-account-section #estateAccountOpen{width:100%}}
+
+/* Numbered service workflow headings use the SIEG teal consistently. */
+:root body :is(.address-area-label,.address-step,.talent-process li strong){color:#218b8c!important}
+

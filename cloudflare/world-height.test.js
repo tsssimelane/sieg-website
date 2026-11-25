@@ -1,0 +1,19 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';
+function setup(width=900){let zoom=0,center={lat:0,lng:0},observer;const style=()=>{const values={};return {values,getPropertyValue:k=>values[k]||'',setProperty(k,v){values[k]=v}}};const frame={clientWidth:width,style:style(),querySelector:()=>({getBoundingClientRect:()=>({height:90})})};const canvas={clientWidth:width,style:style(),closest:()=>frame};const calls=[],events={};const map={options:{},getContainer:()=>canvas,getCenter:()=>center,getZoom:()=>zoom,setMinZoom(z){this.options.minZoom=z},setMaxBounds(b){this.options.maxBounds=b},invalidateSize(){},panInsideBounds(){calls.push('constrain')},setView(c,z){center={lat:c[0],lng:c[1]};zoom=z;calls.push('view')},stop(){},on(name,handler){events[name]=handler}};const context={window:{getComputedStyle:()=>({position:'absolute'}),addEventListener(){},removeEventListener(){},requestAnimationFrame:fn=>{fn();return 1},cancelAnimationFrame(){},ResizeObserver:class{constructor(fn){observer=fn}observe(){}disconnect(){}}}};vm.runInNewContext(fs.readFileSync('assets/world-map-layout.js','utf8'),context);return {api:context.window.SiegWorldMap,map,canvas,frame,calls,events,setView(c,z){center=c;zoom=z},resize(w){canvas.clientWidth=w;observer()},get zoom(){return zoom}}}
+test('maps share a taller standard height and stay inside projected world bounds',()=>{for(const width of [240,320,400,512,768,1270,1920,3840,5120]){const h=setup(width);h.api.mount(h.map);const height=parseFloat(h.canvas.style.values.height);assert.equal(height,width<=640?600:800);assert.ok(Math.max(width,height)<=256*Math.pow(2,h.zoom));assert.equal(h.map.options.minZoom,h.zoom);assert.equal(parseFloat(h.frame.style.values.height),height+90);assert.ok(h.map.options.maxBounds[1][0]<86);assert.equal(h.map.options.maxBounds[0][1],-180);assert.equal(h.map.options.maxBounds[1][1],180)}});
+test('resizing a selected-area map preserves its detailed zoom',()=>{const h=setup();h.api.mount(h.map);h.setView({lat:-26.5,lng:31.4},15);h.calls.length=0;h.resize(400);assert.equal(h.zoom,15);assert.equal(h.canvas.style.values.height,'600px');assert.ok(!h.calls.includes('view'));assert.ok(h.calls.includes('constrain'))});
+test('fit overview returns to a centered world without adding polar padding',()=>{const h=setup();h.api.mount(h.map);h.setView({lat:20,lng:30},10);h.api.fit(h.map);assert.equal(h.zoom,2);assert.equal(h.map.getCenter().lat,0);assert.equal(h.canvas.style.values.height,'800px')});
+test('standalone then/or separator labels are removed from all AOI panels',()=>{for(const file of ['agri/index.html','enviro/index.html','hydrology/index.html','irrigation/content.html'])assert.doesNotMatch(fs.readFileSync(file,'utf8'),/<p class="(?:agri-aoi-divider|sieg-aoi-divider)">\s*(?:then|or)\s*<\/p>/,file)});
+test('initial canvas sizing settles the view before raising the minimum zoom',()=>{const h=setup(900),setMinZoom=h.map.setMinZoom;h.map.setMinZoom=function(zoom){assert.ok(h.zoom>=zoom,'setMinZoom must not start an animated transition during initial resize');return setMinZoom.call(this,zoom)};h.api.mount(h.map);assert.equal(h.zoom,2)});
+
+test('switching to Streets opens the world view while preserving zoom controls and report captures',()=>{
+ const h=setup();h.api.mount(h.map);
+ const layer={_url:'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'};
+ h.setView({lat:-26,lng:31},15);h.events.layeradd({layer});
+ assert.equal(h.zoom,2);assert.equal(h.map.getCenter().lat,0);
+ h.setView({lat:-26,lng:31},16);
+ h.events.layeradd({layer:{...layer,options:{className:'sieg-recent-report-satellite'}}});
+ assert.equal(h.zoom,16);
+ h.events.layeradd({layer:{_url:'https://server.arcgisonline.com/imagery'}});
+ assert.equal(h.zoom,16);
+});

@@ -1,0 +1,13 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const nodes=new Map(),get=id=>{if(!nodes.has(id))nodes.set(id,{value:'river',hidden:false,inert:false,addEventListener(){}});return nodes.get(id)};
+const controls=Array.from({length:8},()=>({disabled:true}));let ready=false;
+const c={document:{getElementById:get,querySelectorAll:()=>controls},window:{siegeHydrology:{canAnalyse:()=>ready}}};
+vm.runInNewContext(fs.readFileSync('hydrology/assets/guided-flow.js','utf8'),c);
+assert(controls.every(x=>!x.disabled),'All service navigation remains selectable before an area is ready');
+assert.equal(get('floodWatchTools').inert,true,'Calculations still require an area');
+ready=true;c.window.HydroUX.sync('Flood Watch');assert(controls.every(x=>!x.disabled));assert.equal(get('floodWatchTools').inert,false);
+ready=false;c.window.HydroUX.sync('Catchment Health');assert(controls.every(x=>!x.disabled),'Changing area cannot freeze service choices');
+const source=fs.readFileSync('hydrology/assets/dashboard.js','utf8');const start=source.indexOf('  var selector = ui.Select({',source.indexOf('async function renderTab()'));
+let options;vm.runInNewContext(source.slice(start,source.indexOf('  modulePanel.add(selector);',start)),{choices:['First layer','Second layer'],keys:['a','b'],ui:{Select:o=>{options=o}},showProduct:key=>{options.chosen=key}});
+assert.equal(options.value,'');assert(options.placeholder);options.onChange('First layer');assert.equal(options.chosen,'a');options.onChange('Second layer');assert.equal(options.chosen,'b');
+console.log('PASS: services stay selectable through area changes; every layer including the first can trigger selection; calculations retain area gating');

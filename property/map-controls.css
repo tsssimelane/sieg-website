@@ -1,0 +1,10 @@
+:root body .estate-workspace-map .sieg-map-tools .estate-boundary-button{box-sizing:border-box;display:grid;place-items:center;width:44px;height:44px;min-height:44px;padding:0;border:1px solid #aec9c4;border-radius:8px;background:white;color:#234756;box-shadow:0 2px 7px #0b233818;cursor:pointer}
+:root body .estate-boundary-button svg{width:23px;height:23px}
+:root body .estate-boundary-button[aria-pressed=true]{background:#edf5ef;color:#168b8d;border-color:#8dbab1}
+:root body .map-wrap .map-tools[hidden]{display:none!important}
+:root body .map-wrap:has(.estate-workspace-map){--map-toolbar-height:0px}
+:root body .map-wrap .estate-workspace-map{top:0!important}
+:root body .estate-workspace-map .sieg-layers-body h4{font-size:12px}
+:root body .estate-workspace-map .leaflet-top .leaflet-control{margin-top:0}
+:root body .estate-workspace-map .sieg-map-tools .estate-boundary-button{position:absolute;top:52px;right:0;z-index:1}
+:root body .estate-workspace-map .sieg-layers-body{z-index:2}

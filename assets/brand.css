@@ -1,0 +1,6 @@
+/* Use the supplied approved SIEG artwork without recolouring or distortion. */
+img[src*="sieg-logo"],img[src*="siege-logo"]{border-radius:12px}
+.topbar .brand{padding:4px 8px;border-radius:12px;background:#fff}
+.topbar .brand img{display:block;width:160px;height:83px;object-fit:contain}
+footer .footer-brand img{display:block;width:220px;max-width:100%;height:auto;padding:0;background:#fff;border-radius:12px}
+@media(max-width:600px){.topbar .brand img{width:138px;height:72px}}

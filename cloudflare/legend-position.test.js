@@ -1,0 +1,9 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';
+const context={};vm.createContext(context);vm.runInContext(fs.readFileSync('assets/legend-position.js','utf8'),context);const {choose,inside}=context.SiegLegendPlacement;
+const candidates=[{side:'left',x:0,y:0,w:100,h:100},{side:'right',x:300,y:0,w:100,h:100}],rect=(x,y,w,h)=>[[x,y],[x+w,y],[x+w,y+h],[x,y+h],[x,y]];
+test('legend moves to the opposite side of AOI occupancy',()=>{assert.equal(choose(candidates,[[rect(0,0,200,200)]]).box.side,'right');assert.equal(choose(candidates,[[rect(200,0,200,200)]]).box.side,'left')});
+test('legend scoring respects holes, multiple AOI parts and visible controls',()=>{assert.equal(inside([30,30],[[rect(0,0,100,100),rect(20,20,50,50)]]),false);assert.equal(inside([330,30],[[rect(0,0,100,100)],[rect(300,0,100,100)]]),true);assert.equal(choose(candidates,[],[{x:0,y:0,w:100,h:100}]).box.side,'right')});
+test('report capture refuses to export without the recent-satellite module',async()=>{const c={};vm.createContext(c);vm.runInContext(fs.readFileSync('assets/report-kit.js','utf8'),c);await assert.rejects(c.SiegeReportKit.captureMapImage({}),/latest 30-day satellite/)});
+test('satellite composite window stays exactly 30 days and changes with the report time',()=>{const c={};vm.createContext(c);vm.runInContext(fs.readFileSync('assets/report-satellite.js','utf8'),c);const a=c.SiegReportSatellite.period(Date.parse('2026-11-16T12:40:00Z')),b=c.SiegReportSatellite.period(Date.parse('2026-11-17T12:40:00Z'));assert.equal(Date.parse(a.end)-Date.parse(a.start),30*86400000);assert.equal(Date.parse(b.end)-Date.parse(a.end),86400000)});
+
+test('legend prioritises clear panel space over covering less AOI',()=>{assert.equal(choose(candidates,[[rect(300,0,100,100)]],[{x:0,y:0,w:30,h:100}]).box.side,'right')});

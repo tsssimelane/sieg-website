@@ -1,0 +1,59 @@
+/* Shared mobile safeguards; retain each service's desktop layout. */
+[hidden]{display:none!important}
+@media(max-width:800px){
+ html{scroll-padding-top:80px}body{margin-inline:0}
+ :root body :is(main,section,article,aside,form,fieldset,dialog,.workspace,.content,.service-main,.service-action-bar,.product-body,.learn-form-card,.resource-card){min-width:0;box-sizing:border-box}
+ :root body :is(h1,h2,h3,p,label,li,a,summary,output){overflow-wrap:anywhere}
+ :root body :is(input,select,textarea){min-width:0;max-width:100%;box-sizing:border-box;font-size:16px!important}
+ :root body :is(button,.btn,.original-link){min-width:0;max-width:100%;min-height:44px;box-sizing:border-box;white-space:normal!important;overflow-wrap:anywhere;line-height:1.4!important}
+ :root body :is(button,.btn) :is(span,strong,b){white-space:normal!important}
+ :root body :is(dialog,.usage-dialog,.entry-modal,.report-delivery){max-width:calc(100vw - 20px)!important;width:min(600px,calc(100vw - 20px));max-height:calc(100dvh - 24px);overflow-y:auto;overscroll-behavior:contain;padding:16px}
+ :root body :is(.resource-grid,.resource-inner-grid,.resource-fields,.georef-pair,.learn-pair,.learn-game-grid,.study-room-layout,.graduates-layout,.form-grid,.approach-grid){grid-template-columns:minmax(0,1fr)!important;gap:12px}
+ :root body :is(.service-action-bar,.service-action-copy,.expert-availability,.learn-section-title,.geo-heading,.study-discussion-heading){flex-wrap:wrap;gap:12px}
+ :root body :is(.resource-actions,.entry-actions,.study-call-actions,.study-tools,.learn-actions,.hero-actions){display:flex;flex-wrap:wrap;gap:8px;min-width:0}
+ :root body :is(.resource-actions,.entry-actions,.study-call-actions,.learn-actions)>button{flex:1 1 140px;margin:0}
+ :root body :is(.service-procedure,.service-action-bar,.resource-hero,.resource-card,.learn-form-card){padding:16px;gap:12px;margin-block:12px}
+ :root body .estate-procedure .estate-procedure-row{grid-template-columns:minmax(0,1fr);gap:6px;padding-block:8px}
+ :root body .estate-procedure .procedure-flow{flex-wrap:wrap;gap:6px 12px}
+ :root body :is(.geo-main,.learn-page,.talent-page,.resources-page){padding-inline:12px}
+ :root body :is(.learn-nav,.ir-flow){max-width:100%;overflow-x:auto;overscroll-behavior-x:contain}
+ :root body .study-canvas-stage{min-width:0;overflow:hidden}#studyBoard{max-width:100%;height:auto;touch-action:none}
+ :root body #studyChatPanel{width:100%;min-width:0}#groupMessages{min-height:180px;max-height:50dvh}#groupPost .study-chat-attach{display:flex;flex-wrap:wrap}
+ :root body :is(.resource-map-toolbar,.siege-map-header){min-width:0;flex-wrap:wrap;gap:6px}
+ :root body :is(.resource-map-toolbar,.siege-map-header)>*{max-width:100%;min-width:0}
+ :root body :is(.tableview,.access-table,.accessibility-table){display:block;max-width:100%;overflow-x:auto}
+ :root body img:not(.leaflet-tile):not(.leaflet-marker-icon),:root body video{max-width:100%}
+ :root body iframe{max-width:100%}#propertyFrame{width:100%}
+ :root body .service-illustration{margin-block:12px;padding:18px;gap:8px}
+ :root body .service-illustration-art{max-height:210px;object-fit:contain}
+ :root body .analysis-workspace{--workspace-height:clamp(320px,58svh,480px);--workspace-gap:10px}
+ :root body .analysis-workspace :is(.agri-sidebar,.hydro-sidebar,.dashboard>aside){max-height:55svh;min-height:0}
+}
+@media(max-width:380px){:root body :is(.estate-listing-actions,.estate-location-fields,.address-location-split,.address-search-row,.ir-location-inputs,.learn-unit-fields){grid-template-columns:minmax(0,1fr)!important}:root body .topbar .brand img{width:120px;height:62px}:root body .sieg-phone-group{grid-template-columns:minmax(0,44%) minmax(0,1fr)!important}}
+
+/* Forms remain usable inside narrow page columns and dynamic mobile viewports. */
+@media(max-width:800px){
+ :root body :is(main,form,fieldset,dialog,.service-main,.learn-shell,.learn-form-card,.resource-card,.geo-main,.talent-page){max-width:100%}
+ :root body :is(form,fieldset) :is(label,.field,.form-row,.input-row,.learn-unit-fields,.graduate-pair,.ir-pair,.resource-fields,.business-print-fields){min-width:0;max-width:100%;box-sizing:border-box}
+ :root body :is(form,fieldset) :is(input:not([type=checkbox]):not([type=radio]):not([type=hidden]),select,textarea){width:100%;min-width:0;max-width:100%;box-sizing:border-box}
+ :root body :is(form,fieldset) textarea{resize:vertical;overflow-wrap:anywhere}
+ :root body :is(dialog,.usage-dialog,.entry-modal,.report-delivery){max-height:calc(100dvh - 24px)!important;margin:auto;overflow-x:hidden;scroll-padding-block:12px}
+ :root body :is(.ir-table-wrap,.learn-stage-scroll,.geo-table-scroll,.table-wrap,.resource-table-wrap){min-width:0;width:100%;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain}
+ :root body :is(.study-canvas-tools,.study-discussion-tools,.business-print-fields){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ :root body :is(.study-canvas-tools,.study-discussion-tools,.business-print-fields)>*{min-width:0;max-width:100%}
+ :root body :is(.talent-actions,.address-access-actions,.address-secondary-actions,.address-physical-actions,.geo-actions){display:flex;flex-wrap:wrap;gap:8px;min-width:0}
+ :root body :is(.talent-actions,.address-access-actions,.address-secondary-actions,.address-physical-actions,.geo-actions)>:is(a,button){flex:1 1 140px;min-width:0;white-space:normal}
+}
+@media(max-width:600px){
+ :root body :is(.ir-pair,.graduate-pair,.business-print-fields,.study-canvas-tools,.resource-fields){grid-template-columns:minmax(0,1fr)!important}
+ :root body :is(form,fieldset) .two{grid-template-columns:minmax(0,1fr)!important}
+}
+@media(orientation:landscape) and (max-height:500px){:root body :is(dialog,.usage-dialog,.entry-modal,.report-delivery){max-height:calc(100dvh - 12px)!important;overflow-y:auto}}
+
+
+@media(max-width:720px){
+ :root body main > .block:not(.expert){padding-block:clamp(28px,8vw,46px)}
+ :root body .service-main:has(>.service-photo-intro){padding-block:16px!important}
+ :root body .service-photo-intro{gap:14px!important;margin-block:10px 16px!important}
+ :root body .service-photo-intro .service-intro-image{min-height:0}
+}

@@ -1,0 +1,9 @@
+/* Shared service strips: one row at every width, including future services. */
+:root body :is(.quick-links,.footer-services){display:flex!important;flex-wrap:nowrap!important;align-items:stretch;overflow-x:auto!important;overflow-y:hidden!important;min-width:0;max-width:100%;gap:0;scrollbar-width:thin;scrollbar-color:#218b8c #eee8dc}
+:root body :is(.quick-links,.footer-services)>a,:root body .quick-links>a:not(:first-child){display:flex;align-items:center;justify-content:center;gap:6px!important;min-width:max-content!important;width:auto!important;flex:1 0 auto!important;grid-column:auto!important;white-space:nowrap!important;padding:17px clamp(6px,.6vw,12px)!important;font-size:clamp(10.5px,.78vw,14px)!important;line-height:1.4;border-right:1px solid #d5cdbf;border-bottom:0!important}
+:root body :is(.quick-links,.footer-services)>a:last-child{border-right:0}
+.quick-links .num,.footer-services b{flex:none;font-size:10px}.quick-links .arrow{display:none!important}
+@media(max-width:1000px){:root body :is(.quick-links,.footer-services)>a,:root body .quick-links>a:not(:first-child){padding:15px 12px!important;font-size:12px!important}}
+/* Let the footer strip extend through the footer's horizontal padding. */
+:root body .footer-services{width:auto!important;max-width:none!important;box-sizing:border-box}
+:root body .quick-links{width:100%!important;max-width:100%!important;box-sizing:border-box;padding-inline:0!important}

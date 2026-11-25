@@ -1,0 +1,5 @@
+.aoi-upload{display:flex;flex-direction:column;gap:7px;grid-column:1/-1;margin:8px 0 12px;min-width:0}.aoi-upload button{width:100%;min-height:39px;border:1px solid #218b8c!important;border-radius:9px!important;background:#edf6f3!important;color:#176f73!important;font-size:12px!important;text-align:center;white-space:nowrap}.aoi-upload .aoi-apply{background:#218b8c!important;color:white!important}.aoi-upload small{font-size:10px;line-height:1.5;color:#61727c}.aoi-upload select{width:100%;min-width:0;font-size:12px}.aoi-upload p{font-size:11px;line-height:1.5;color:#176f73;overflow-wrap:anywhere;margin:0}.aoi-upload [hidden]{display:none!important}.aoi-upload button:focus-visible{outline:3px solid #b68c36;outline-offset:2px}
+
+.aoi-upload small span{display:block;white-space:nowrap;letter-spacing:-.15px}.aoi-upload p:empty{display:none}
+
+.aoi-attributes{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}.aoi-attributes label{display:block;font:400 11px/1.5 Arial,Helvetica,sans-serif;margin:0;color:#61727c;min-width:0}.aoi-attributes select{display:block;margin-top:5px;max-width:100%}

@@ -1,0 +1,24 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),{webcrypto}=require('node:crypto');
+const DB=require('./address_test_db.cjs')();let emails=[];
+const context={Date,JSON,Number,URL,Response,AbortSignal,crypto:webcrypto,setTimeout:fn=>fn(),reportMailReady:env=>!!(env.RESEND_API_KEY&&env.REPORT_FROM_EMAIL),opsUser:r=>r.headers.get('oai-authenticated-user-id'),opsId:id=>/^[a-f0-9-]{36}$/.test(id||''),opsEmail:v=>{if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))throw Error('Verified email required');return v.toLowerCase();},opsJSON:(v,status=200)=>new Response(JSON.stringify(v),{status}),opsBody:r=>r.json(),fetch:async(url,options)=>{emails.push(JSON.parse(options.body));return new Response('{}',{status:200});}};
+vm.createContext(context);vm.runInContext(fs.readFileSync('worker/expert-availability.js','utf8'),context);
+const env={DB,RESEND_API_KEY:'test',REPORT_FROM_EMAIL:'test@example.com'},id='11111111-1111-4111-8111-111111111111';
+const request=(owner,body)=>new Request('https://sieg.example/api/experts/availability',{method:body?'POST':'GET',headers:{Origin:'https://sieg.example','oai-authenticated-user-id':owner,'oai-authenticated-user-email':'owner@example.com','Content-Type':'application/json'},body:body?JSON.stringify(body):undefined});
+(async()=>{
+ const data=context.expertAvailabilityData(request('owner'),{availability:'Available now',availabilityReminders:true},Date.now());
+ assert.equal(data.reminderEmail,'owner@example.com');assert.equal(Date.parse(data.nextReminderAt)-Date.parse(data.availabilityConfirmedAt),90*86400000);
+ assert.throws(()=>context.expertAvailabilityData(request('owner'),{availability:'invented',availabilityReminders:true}));
+ const record={id,owner:'owner',state:'approved',createdAt:new Date().toISOString(),data:{name:'Test Expert',trade:'Electricians',...data}};
+ await DB.prepare('INSERT INTO siege_records(id,kind,owner,state,created_at,body_json) VALUES(?,?,?,?,?,?)').bind(id,'experts','owner','approved',record.createdAt,JSON.stringify(record)).run();
+ assert.equal((await context.expertAvailabilityAPI(request('other',{id,availability:'Not currently available',availabilityReminders:false}),env)).status,404);
+ assert.equal((await context.expertAvailabilityAPI(request('owner',{id,availability:'Within 2 weeks',availabilityReminders:true}),env)).status,200);
+ let row=JSON.parse((await DB.prepare('SELECT body_json FROM siege_records WHERE id=?').bind(id).first()).body_json);assert.equal(row.state,'approved');assert.equal(row.data.availability,'Within 2 weeks');
+ row.data.nextReminderAt=new Date(Date.now()-1000).toISOString();await DB.prepare('UPDATE siege_records SET body_json=? WHERE id=?').bind(JSON.stringify(row),id).run();
+ let result=await context.expertReminderRun(env,'https://sieg.example',{dryRun:true});assert.equal(result.dueProfiles,1);assert.equal(emails.length,0);
+ result=await context.expertReminderRun(env,'https://sieg.example');assert.equal(result.sent,1);assert.deepEqual(emails[0].to,['owner@example.com']);assert(emails[0].text.includes('/talent-pool.html#my-expert-profiles'));
+ await context.expertReminderRun(env,'https://sieg.example');assert.equal(emails.length,1);
+ await context.expertAvailabilityAPI(request('owner',{id,availability:'Not currently available',availabilityReminders:false}),env);
+ row=JSON.parse((await DB.prepare('SELECT body_json FROM siege_records WHERE id=?').bind(id).first()).body_json);assert.equal(row.data.nextReminderAt,null);assert.equal(row.data.reminderEmail,null);
+ assert.equal((await context.expertReminderRun({DB},'https://sieg.example')).status,'configuration_missing');
+ console.log('Passed: owner-only updates, preserved approval, validated status, 90-day interval, opt-out, dry run, due email and repeat-run protection.');
+})().catch(error=>{console.error(error);process.exitCode=1;});

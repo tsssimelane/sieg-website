@@ -5,7 +5,7 @@ const pause=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 window.SiegHydroRunIndicator=async(group,item)=>{
  if(!window.aoi||!window.siegeHydrology?.canAnalyse())throw Error('Define your area first.');
  const geometry=window.aoi,year=Number(window.year),scope=context();
- const manual=['river-flow','reservoir','river-scenario','dam-scenario','ground','delineation','export','wetlands'].includes(item.hydroAction);
+ const manual=['river-flow','reservoir','river-scenario','dam-scenario','ground','export','wetlands'].includes(item.hydroAction);
  if(manual){
   let summary='',html='';const flood=window.hydroFloodSummary,validation=window.hydroValidationSummary;
   if(['river-scenario','dam-scenario'].includes(item.hydroAction)&&flood?.geometry===geometry&&flood.year===year&&flood.type===(item.hydroAction==='river-scenario'?'river':'dam'))summary=flood.summary;
@@ -34,6 +34,7 @@ window.SiegHydroRunIndicator=async(group,item)=>{
  if(!html||(!product&&!condition&&item.hydroAction!=='basins'))throw Error('No completed output was returned. Review this indicator and retry.');
  let image='';const geo=await window.SiegeReportKit.evaluate(geometry);
  if(product?.image)image=await window.SiegeReportKit.map(product.image,{min:product.min,max:product.max,palette:product.palette},geometry,{geometry:geo,fitArea:true,title:item.label,legendSpec:{title:product.title,palette:product.palette,min:product.min,max:product.max,items:product.legendItems||[]},source:product.description||'See indicator source notes'});
+ else if(item.hydroAction==='delineation')image=await window.SiegeReportKit.capture({geometry:geo,fitArea:true,title:item.label,source:'MERIT-Basins v0.7 / v01 · precomputed river reaches'});
  else if(item.hydroAction==='basins')image=await window.SiegeReportKit.capture({geometry:geo,fitArea:true,title:item.label,source:'Selected catchment boundary'});
  snapshots.set(group+'::'+item.hydroAction,{scope,group,value:item.hydroAction,label:item.label,html,image,geometry:geo,year});
 };

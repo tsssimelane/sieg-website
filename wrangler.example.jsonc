@@ -1,0 +1,75 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "sieg-beyond-the-vision",
+  "main": "cloudflare/entry.js",
+  "compatibility_date": "2026-11-13",
+  "workers_dev": true,
+  "build": {
+    "command": "npm run build"
+  },
+  "assets": {
+    "directory": "cloudflare-dist/public",
+    "binding": "ASSETS",
+    "run_worker_first": true,
+    "html_handling": "none"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "sieg-production",
+      "database_id": "REPLACE_WITH_D1_DATABASE_ID",
+      "migrations_dir": "cloudflare/migrations"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "BUCKET",
+      "bucket_name": "sieg-production-files"
+    }
+  ],
+  "vars": {
+    "GEE_PROJECT_ID": "ee-gee023",
+    "GEE_MERIT_BASINS_ASSETS": "{\"1\":\"projects/ee-gee023/assets/cat_pfaf_1_MERIT_Hydro_v07_Basins_v01\",\"2\":\"projects/ee-gee023/assets/cat_pfaf_2_MERIT_Hydro_v07_Basins_v01\",\"4\":\"projects/ee-gee023/assets/cat_pfaf_4_MERIT_Hydro_v07_Basins_v01\",\"5\":\"projects/ee-gee023/assets/cat_pfaf_5_MERIT_Hydro_v07_Basins_v01\",\"6\":\"projects/ee-gee023/assets/cat_pfaf_6_MERIT_Hydro_v07_Basins_v01\",\"7\":\"projects/ee-gee023/assets/cat_pfaf_7_MERIT_Hydro_v07_Basins_v01\",\"8\":\"projects/ee-gee023/assets/cat_pfaf_8_MERIT_Hydro_v07_Basins_v01\",\"9\":\"projects/ee-gee023/assets/cat_pfaf_9_MERIT_Hydro_v07_Basins_v01\"}",
+    "REPORT_CHECKOUT_ENABLED": "false",
+    "WEEKLY_CROP_ENABLED": "false",
+    "PAYGATE_CURRENCY": "USD",
+    "CF_ACCESS_TEAM_DOMAIN": "https://YOUR-TEAM.cloudflareaccess.com",
+    "CF_ACCESS_AUD": "REPLACE_WITH_ACCESS_APPLICATION_AUD",
+    "SIEG_ENV": "production"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "env": {
+    "staging": {
+      "name": "sieg-beyond-the-vision-staging",
+      "routes": [],
+      "workers_dev": true,
+      "preview_urls": false,
+      "vars": {
+        "GEE_PROJECT_ID": "ee-gee023",
+    "GEE_MERIT_BASINS_ASSETS": "{\"1\":\"projects/ee-gee023/assets/cat_pfaf_1_MERIT_Hydro_v07_Basins_v01\",\"2\":\"projects/ee-gee023/assets/cat_pfaf_2_MERIT_Hydro_v07_Basins_v01\",\"4\":\"projects/ee-gee023/assets/cat_pfaf_4_MERIT_Hydro_v07_Basins_v01\",\"5\":\"projects/ee-gee023/assets/cat_pfaf_5_MERIT_Hydro_v07_Basins_v01\",\"6\":\"projects/ee-gee023/assets/cat_pfaf_6_MERIT_Hydro_v07_Basins_v01\",\"7\":\"projects/ee-gee023/assets/cat_pfaf_7_MERIT_Hydro_v07_Basins_v01\",\"8\":\"projects/ee-gee023/assets/cat_pfaf_8_MERIT_Hydro_v07_Basins_v01\",\"9\":\"projects/ee-gee023/assets/cat_pfaf_9_MERIT_Hydro_v07_Basins_v01\"}",
+        "REPORT_CHECKOUT_ENABLED": "false",
+        "WEEKLY_CROP_ENABLED": "false",
+        "PAYGATE_CURRENCY": "USD",
+        "CF_ACCESS_TEAM_DOMAIN": "https://YOUR-TEAM.cloudflareaccess.com",
+        "CF_ACCESS_AUD": "REPLACE_WITH_STAGING_ACCESS_AUD",
+        "SIEG_ENV": "staging"
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "sieg-staging",
+          "database_id": "REPLACE_WITH_STAGING_DATABASE_ID",
+          "migrations_dir": "cloudflare/migrations"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "BUCKET",
+          "bucket_name": "sieg-staging-files"
+        }
+      ]
+    }
+  }
+}

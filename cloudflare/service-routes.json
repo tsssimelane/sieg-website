@@ -1,6 +1,8 @@
 {
   "fields": "agri-intelligence.html",
   "irrigate": "irrigation.html",
+  "ledger": "ledger.html",
+  "chemicals": "chemicals.html",
   "hydrology": "hydrology.html",
   "eco": "enviro-intelligence.html",
   "estates": "property-explorer.html",

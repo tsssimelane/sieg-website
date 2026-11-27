@@ -1,0 +1,41 @@
+#connected-services.sieg-connected-services{margin:24px 3% 42px;padding:0;overflow:hidden;border:1px solid #d2e3de;border-radius:17px;background:#f8fbf9;color:#0b2338;font:15px/1.5 Arial,sans-serif;box-shadow:0 10px 32px #0b233808}
+#connected-services *{box-sizing:border-box}
+#connected-services .sc-head{display:flex;align-items:center;justify-content:space-between;gap:28px;padding:30px 32px;background:linear-gradient(115deg,#0b2338,#175b61);color:#fff}
+#connected-services .sc-kicker{margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:1.8px;color:#aadbd6}
+#connected-services .sc-head h2{color:#fff;font-size:clamp(24px,3vw,35px);line-height:1.15;margin:0 0 10px;letter-spacing:-.45px}
+#connected-services .sc-head p:not(.sc-kicker){color:#dfefed;max-width:700px;margin:0;font-size:15px}
+#connected-services .sc-heading-mark{width:126px;flex:0 0 126px;color:#86cec0;opacity:.8}
+#connected-services .sc-heading-mark svg{width:100%;display:block}
+#connected-services .sc-reference{display:grid;grid-template-columns:minmax(200px,.8fr) minmax(0,1.5fr);align-items:center;gap:24px;margin:24px 28px 26px;padding:20px;background:white;border:1px solid #d4e5df;border-radius:12px}
+#connected-services .sc-reference-intro{display:flex;gap:13px;align-items:flex-start}
+#connected-services .sc-ref-icon,#connected-services .sc-service-icon{display:grid;place-items:center;background:#e5f3ef;color:#176f73;width:46px;height:46px;border-radius:11px;flex:0 0 46px}
+#connected-services .sc-ref-icon svg,#connected-services .sc-service-icon svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+#connected-services .sc-reference h3{font-size:18px;margin:0 0 5px;color:#0b2338}
+#connected-services .sc-reference p{font-size:13px;margin:0;color:#55717a}
+#connected-services .sc-reference-form label{display:block;font-weight:700;color:#34515b;margin-bottom:7px;font-size:13px}
+#connected-services .sc-input-row{display:flex;gap:8px;align-items:stretch}
+#connected-services .sc-input-row input{flex:1;min-width:0;width:100%;padding:12px;border:1px solid #b7d1cd;border-radius:7px;color:#0b2338;background:#fcfefd;font:14px Arial}
+#connected-services #scLoad{flex-shrink:0;background:#218b8c;border:1px solid #218b8c;color:white;font:700 14px Arial;padding:12px 16px;border-radius:7px;cursor:pointer;white-space:nowrap}
+#connected-services #scStatus{margin:8px 0 0;overflow-wrap:anywhere}
+#connected-services .sc-account-note{font-size:12px;color:#667e84;margin-top:3px}
+#connected-services .sc-group-heading{margin:0 28px 12px;display:flex;gap:12px;align-items:baseline;justify-content:space-between}
+#connected-services .sc-group-heading h3{margin:0;color:#0b2338;font-size:18px;font-weight:700}
+#connected-services .sc-group-heading>span{font-size:12px;color:#59747a;text-align:right}
+#connected-services .sc-grid{display:grid;gap:12px;margin:0 28px 28px}
+#connected-services .sc-connected-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+#connected-services .sc-grid button,#connected-services .sc-grid a{display:flex;min-width:0;align-items:flex-start;text-align:left;border:1px solid #d4e4de;border-radius:11px;background:white;color:#0b2338;text-decoration:none;cursor:pointer;transition:background .16s,border-color .16s,box-shadow .16s;font:inherit;box-shadow:none}
+#connected-services .sc-connected-grid button{flex-direction:column;gap:9px;padding:17px;min-height:190px;width:100%}
+#connected-services .sc-grid strong{display:block;font-size:17px;line-height:1.25;color:#176f73;font-weight:700}
+#connected-services .sc-description{display:block;font-size:13px;line-height:1.45;color:#516a74;font-weight:400;margin:0}
+#connected-services .sc-action{margin-top:auto;align-self:stretch;color:#176f73;font-size:13px;font-weight:700;padding-top:10px;border-top:1px solid #e2ebe7}
+#connected-services .sc-support-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+#connected-services .sc-support-grid a{align-items:center;padding:14px;gap:11px;min-height:82px}
+#connected-services .sc-support-grid a>div{flex:1;min-width:0}
+#connected-services .sc-support-grid .sc-service-icon{width:36px;height:36px;flex-basis:36px;border-radius:8px}
+#connected-services .sc-support-grid .sc-service-icon svg{width:20px;height:20px}
+#connected-services .sc-support-grid strong{font-size:15px;margin-bottom:3px}
+#connected-services .sc-support-open{color:#176f73;font-size:12px;font-weight:bold}
+#connected-services .sc-grid button:hover,#connected-services .sc-grid a:hover{background:#f1faf6;border-color:#74b9b0;box-shadow:0 4px 14px #0b23380c}
+#connected-services :is(input,button,a):focus-visible{outline:3px solid #1f8588;outline-offset:3px}
+@media(max-width:950px){#connected-services .sc-reference{grid-template-columns:1fr;gap:16px}#connected-services .sc-connected-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#connected-services .sc-support-grid{grid-template-columns:1fr}}
+@media(max-width:560px){#connected-services.sieg-connected-services{margin:16px 12px 26px;border-radius:12px}#connected-services .sc-head{padding:22px 16px}#connected-services .sc-heading-mark{display:none}#connected-services .sc-reference{margin:15px;padding:14px}#connected-services .sc-group-heading{margin:0 15px 9px;flex-wrap:wrap;gap:3px}#connected-services .sc-grid{margin:0 15px 18px;gap:9px}#connected-services .sc-connected-grid button{padding:12px;min-height:170px}#connected-services .sc-grid strong{font-size:15px}#connected-services .sc-input-row{flex-direction:column}#connected-services #scLoad{width:100%}}

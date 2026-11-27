@@ -7,3 +7,11 @@
 /* Let the footer strip extend through the footer's horizontal padding. */
 :root body .footer-services{width:auto!important;max-width:none!important;box-sizing:border-box}
 :root body .quick-links{width:100%!important;max-width:100%!important;box-sizing:border-box;padding-inline:0!important}
+
+/* Twelve service links fit a single row at wide desktop sizes; scroll on narrow screens. */
+@media(min-width:1450px){
+ :root body :is(.quick-links,.footer-services)>a,:root body .quick-links>a:not(:first-child){padding-inline:clamp(5px,.42vw,9px)!important;font-size:clamp(10px,.68vw,13px)!important;gap:5px!important}
+}
+:root body .hero-index{gap:clamp(5px,.65vh,10px)}
+:root body .hero-index .hero-service-label{white-space:nowrap}
+@media(max-width:760px){:root body .hero-index{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 10px}}

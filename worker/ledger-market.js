@@ -1,0 +1,18 @@
+// Public market feed: only known units, dates and commodity matches; never infer selling price from retail.
+const ledgerMarketSource='https://www.umlimisi.com/data/';
+const ledgerMarketFeed='https://api.ekukhulenilabs.co.za/market-prices/namboard/latest';
+const ledgerMarketSnapshot={tomato:{value:6500,date:'2026-11-22',commodity:'Tomatoes, variety not stated'},mango:{value:6000,date:'2026-11-22',commodity:'Mangoes'},avocado:{value:9500,date:'2026-11-22',commodity:'Avocados'}};
+function ledgerMarketRows(payload){return Array.isArray(payload)?payload:payload?.data?.records||payload?.data?.prices||payload?.data||payload?.records||payload?.prices||payload?.results||[]}
+function ledgerMarketQuote(payload,crop,system,now=new Date()){
+ const names={tomato:['tomato','tomatoes'],mango:['mango','mangoes'],avocado:['avocado','avocados'],banana:['banana','bananas'],onion:['onion','onions'],potato:['potato','potatoes'],carrot:['carrot','carrots'],cabbage:['cabbage'],spinach:['spinach'],pepper:['pepper','sweet pepper'],beetroot:['beetroot'],cucumber:['cucumber','cucumbers']};
+ if(crop==='tomato'&&system==='Protected cultivation')return null;const wanted=names[crop]||[crop],rows=ledgerMarketRows(payload);if(!Array.isArray(rows))return null;
+ const valid=[];for(const r of rows){const raw=r.commodity;const label=String(typeof raw==='object'?raw.name||raw.slug:raw||r.commodity_name||r.name||'').trim().toLowerCase();if(!wanted.includes(label))continue;const grade=String(r.grade||'').trim();if(grade&&!['none','ungraded','standard','not specified','null'].includes(grade.toLowerCase()))continue;const unit=String(r.unit?.code||r.unit_code||r.unit||'').toLowerCase(),currency=String(r.currency?.code||r.currency_code||r.currency||'').toUpperCase(),value=Number(r.price?.value??r.price??r.price_szl??r.value),date=String(r.valid_from||r.start_date||r.week_start||r.date||r.validity?.from||r.validity_period?.start||'').slice(0,10);const days=(+now-Date.parse(date+'T00:00:00Z'))/86400000;
+ if(currency!=='SZL'||!Number.isFinite(value)||value<=0||!Number.isFinite(days)||days<0||days>14||!['kg','k gm','kgm','kilogram','per kg','t','tonne','tne'].includes(unit))continue;
+ valid.push({value:['t','tonne','tne'].includes(unit)?value:value*1000,date,commodity:label,source:ledgerMarketSource,scope:'Eswatini · NAMBoard buying price via Umlimisi (unofficial feed)',currency:'SZL',live:true});}
+ valid.sort((a,b)=>b.date.localeCompare(a.date));return valid[0]||null;
+}
+async function ledgerMarketAPI(request,env){const url=new URL(request.url);if(request.method!=='GET')return opsJSON({error:'Method not allowed.'},405);const country=url.searchParams.get('country'),crop=String(url.searchParams.get('crop')||'').trim().toLowerCase(),system=url.searchParams.get('system')||'';if(country!=='SZ'||!crop||crop.length>80)return opsJSON({quote:null,message:'No verified regional market feed configured for this crop and country.'});
+ try{const r=await fetch(ledgerMarketFeed,{signal:AbortSignal.timeout(7000),headers:{Accept:'application/json'}});if(r.ok){const quote=ledgerMarketQuote(await r.json(),crop,system);if(quote)return opsJSON({quote});}}catch{}
+ const s=ledgerMarketSnapshot[crop],age=s?(Date.now()-Date.parse(s.date+'T00:00:00Z'))/86400000:Infinity;if(s&&age>=0&&age<=14&&!(crop==='tomato'&&system==='Protected cultivation'))return opsJSON({quote:{...s,currency:'SZL',source:'https://husfarm.com/markets/namboard-eswatini-buying-prices/',scope:'Eswatini · published NAMBoard buying-price snapshot via Husfarm',live:false}});
+ return opsJSON({quote:null,message:'No recent, mass-based producer buying price verified.'});
+}

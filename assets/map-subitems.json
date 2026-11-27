@@ -239,7 +239,7 @@
         "hydroAction": "basins"
       },
       {
-        "label": "Drainage network and outlet delineation",
+        "label": "Existing drainage network (MERIT rivers)",
         "hydroAction": "delineation"
       },
       {
@@ -253,7 +253,7 @@
         "hydroAction": "basins"
       },
       {
-        "label": "Drainage network and outlet delineation",
+        "label": "Existing drainage network (MERIT rivers)",
         "hydroAction": "delineation"
       },
       {

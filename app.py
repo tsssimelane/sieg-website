@@ -90,13 +90,13 @@ def build():
         start = body.index('<p class="kicker"' if service == 'irrigate' else '<div class="kicker"')
         end = body.index('<section class="service-procedure"' if service == 'irrigate' else '</section>', start)
         intros = {
-            'address': ('06 / SIEG ADDRESS', 'Every place matters.', 'Make yours easy to find.', 'Create a provisional digital address for your home, business or facility. Capture its entrance, then share a card, QR code or directions link.', 'entranceForm', 'Create your address', 'A residential entrance with a visible SIEG address sign on the gate pillar'),
-            'learn': ('08 / SIEG LEARN', 'Teach with purpose.', 'Learn with confidence.', 'Bring books, lesson planning and study groups together. Create engaging teaching materials and help learners build understanding, one topic at a time.', 'learn-workspace', 'Explore learning tools', 'A teacher supporting students with books and a laptop in a bright classroom'),
+            'address': ('07 / SIEG ADDRESS', 'Every place matters.', 'Make yours easy to find.', 'Create a provisional digital address for your home, business or facility. Capture its entrance, then share a card, QR code or directions link.', 'entranceForm', 'Create your address', 'A residential entrance with a visible SIEG address sign on the gate pillar'),
+            'learn': ('09 / SIEG LEARN', 'Teach with purpose.', 'Learn with confidence.', 'Bring books, lesson planning and study groups together. Create engaging teaching materials and help learners build understanding, one topic at a time.', 'learn-workspace', 'Explore learning tools', 'A teacher supporting students with books and a laptop in a bright classroom'),
             'fields': ('01 / SIEG FIELDS', 'Understand your land.', 'Grow its potential.', 'Explore soil, terrain, climate and crop health worldwide. Turn your field boundary into practical insights for your next growing decision.', 'agriFrame', 'Explore your field', 'Green crop rows across rolling farmland in southern Africa'),
             'irrigate': ('02 / SIEG IRRIGATE', 'Every drop matters.', 'Design it around your land.', 'Plan water demand, compare irrigation systems and review preliminary layouts and costs, all around the boundary of your field.', 'irMap', 'Plan your irrigation', 'A sprinkler watering green crop rows in morning sunlight'),
-            'hydrology': ('03 / SIEG HYDROLOGY', 'Follow the water.', 'Understand the landscape.', 'Explore catchments, rainfall, surface water and groundwater screening. See how water connects your area to the wider landscape.', 'hydroFrame', 'Explore water insights', 'A winding freshwater river through a green valley'),
-            'eco': ('04 / SIEG ECO', 'See the change.', 'Plan a healthier future.', 'Explore land cover, biodiversity and environmental pressures worldwide. Understand what is changing and where to look more closely.', 'enviroFrame', 'Explore your environment', 'Indigenous woodland and a natural stream in a lush green landscape'),
-            'estate': ('05 / SIEG ESTATE', 'Find your place.', 'See the possibilities.', 'Discover homes and land worldwide. Explore property locations, nearby amenities and area insights before choosing your next move.', 'propertyFrame', 'Explore properties', 'A contemporary family home with a landscaped garden in southern Africa')
+            'hydrology': ('04 / SIEG HYDROLOGY', 'Follow the water.', 'Understand the landscape.', 'Explore catchments, rainfall, surface water and groundwater screening. See how water connects your area to the wider landscape.', 'hydroFrame', 'Explore water insights', 'A winding freshwater river through a green valley'),
+            'eco': ('05 / SIEG ECO', 'See the change.', 'Plan a healthier future.', 'Explore land cover, biodiversity and environmental pressures worldwide. Understand what is changing and where to look more closely.', 'enviroFrame', 'Explore your environment', 'Indigenous woodland and a natural stream in a lush green landscape'),
+            'estate': ('06 / SIEG ESTATE', 'Find your place.', 'See the possibilities.', 'Discover homes and land worldwide. Explore property locations, nearby amenities and area insights before choosing your next move.', 'propertyFrame', 'Explore properties', 'A contemporary family home with a landscaped garden in southern Africa')
         }
         kicker, first, second, description, target, action, alt = intros[service]
         secondary = '<a class="service-intro-secondary" data-view="teacher-plans" href="#learn-workspace">Explore teacher plans</a>' if service == 'learn' else ''
@@ -132,6 +132,10 @@ def build():
     agri_body, agri_head = illustrated_service(agri_body, agri_head, 'fields')
     agri_body=agri_body.replace('</section>',service_procedure('fields')+'</section>',1)
     agri_script="""<script>const agriFrame=document.getElementById('agriFrame');window.addEventListener('message',e=>{if(e.origin===location.origin&&e.source===agriFrame.contentWindow&&e.data?.type==='siege-agri-height'&&Number.isFinite(e.data.height)){agriFrame.style.height=Math.min(20000,Math.max(1000,e.data.height))+'px'}});</script>"""
+    connected=(ROOT/'assets/fields-connected.html').read_text()
+    agri_body=agri_body.replace('</main>',connected+'</main>')
+    agri_head=agri_head.replace('</head>','<link rel="stylesheet" href="/assets/fields-connected.css"></head>')
+    agri_script+='<script src="/assets/fields-connected.js" defer></script>'
     agri_page=agri_head+agri_body+footer+privacy+script+nav_script+agri_script+'</body></html>'
     (out/'agri-intelligence.html').write_text(agri_page)
     (out/'land-evaluation.html').write_text(agri_page)
@@ -182,10 +186,11 @@ def build():
     resources_scripts+='<script defer src="resources/measure-drawer.js?v=20261118"></script><script defer src="resources/toolbox-launcher.js?v=20261119-admin-tools"></script>'
     (out/'resources.html').write_text(resources_head+resources_body+footer+privacy+script+nav_script+resources_scripts+'</body></html>')
     # New services share navigation, branding, footer and accessibility controls.
-    for folder,title in [('irrigation','SIEG Irrigate'),('education','SIEG Learn')]:
+    for folder,title in [('irrigation','SIEG Irrigate'),('ledger','SIEG Ledger'),('chemicals','SIEG Chemicals'),('education','SIEG Learn')]:
         shutil.copytree(ROOT/folder,out/folder,dirs_exist_ok=True)
         custom_head=head.replace('<title>SIEG | Beyond the Vision</title>',f'<title>{title} | SIEG</title>').replace('</head>',f'<link rel="stylesheet" href="{folder}/style.css?v=20261030-slope"></head>')
         if folder=='irrigation':custom_head=custom_head.replace('irrigation/style.css?v=20261030-slope','irrigation/style.css?v=20261115-refined-controls').replace('</head>','<link rel="stylesheet" href="assets/header-navigation.css?v=20261118-consistent"><link rel="stylesheet" href="irrigation/layout-fixes.css?v=20261118"></head>')
+        if folder in ['ledger','chemicals']:custom_head=custom_head.replace('</head>','<link rel="stylesheet" href="assets/service-illustration.css?v=20261126-agriculture"></head>')
         if folder=='education':custom_head=custom_head.replace('education/style.css?v=20261030-slope','education/style.css?v=20261119-aligned')
         body=(ROOT/folder/'content.html').read_text()
         if folder=='irrigation':

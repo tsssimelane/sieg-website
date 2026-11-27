@@ -98,6 +98,7 @@
   changeArea.onclick=()=>{navigationCollapsed=false;if(root.SiegAreaSection?.complete)document.querySelector('.sieg-area-summary button')?.click();areaState();inlineInput.focus({preventScroll:true})};
   drawHere.onclick=()=>{navigationCollapsed=false;drawButton?.click();areaActions.hidden=true};
   function located(){navigationCollapsed=true;satellite?.click();closeSearch();areaState();canvas.setAttribute('tabindex','-1');canvas.focus({preventScroll:true});map.invalidateSize({pan:false});}
+  if(hydro){try{const center=JSON.parse(root.sessionStorage?.getItem('sieg-ledger-center')||'null');if(center?.length===2&&center.every(Number.isFinite)){map.setView(center,14,{animate:false});root.sessionStorage.removeItem('sieg-ledger-center');coordinateStatus.textContent='Registered field location. Use map centre to select the catchment.';}}catch{}}
   document.addEventListener('sieg-place-located',located);document.addEventListener('sieg-location-selected',located);
   function areaState(){coordinateStatus.replaceChildren();uploads.classList.remove('is-drawing');drawButton?.style.removeProperty('display');locateHere.style.removeProperty('display');const complete=!!root.SiegAreaSection?.complete;if(complete&&uploads.contains(document.activeElement)){canvas.setAttribute('tabindex','-1');canvas.focus({preventScroll:true})}const needsPump=irrigation&&complete&&pumpButton&&!pumpButton.disabled&&(pumpButton.dataset.pumpPlaced!=='true'||pumpButton.getAttribute('aria-pressed')==='true');uploads.classList.toggle('is-pump-step',!!needsPump);uploads.classList.toggle('is-pump-placing',!!needsPump&&pumpButton.getAttribute('aria-pressed')==='true');uploads.hidden=navigationCollapsed||complete&&!needsPump;areaActions.hidden=!navigationCollapsed&&!complete;if(irrigation){const change=document.querySelector('.sieg-area-summary button');if(change)change.textContent='Change area / pump';}}
   document.addEventListener('sieg-area-state',areaState);document.addEventListener('sieg-pump-state',areaState);areaState();document.getElementById(irrigation?'irDraw':'draw')?.addEventListener('click',()=>{navigationCollapsed=false;areaActions.hidden=true;uploads.hidden=false;uploads.classList.add('is-drawing');drawButton?.style.setProperty('display','none','important');locateHere.style.setProperty('display','none','important')});
@@ -131,7 +132,7 @@
      try{
       if(service==='fields')await root.SiegFieldsRunIndicator(choice.group,item);
       else if(service==='eco')await root.SiegEcoRunIndicator(choice.group,item.value);
-      else {if(!hydroPrepared){await root.rebuild?.();hydroPrepared=true;}await root.SiegHydroRunIndicator(choice.group,item);}
+      else {if(!hydroPrepared&&item.hydroAction!=='delineation'){await root.rebuild?.();hydroPrepared=true;}await root.SiegHydroRunIndicator(choice.group,item);}
       completed.set(id,{signature,choice,layers:(root.SiegMapWorkspace?.availableLayers?.()||[]).filter(r=>!beforeLayers.has(r.id)).map(r=>r.id)});states.set(id,'Complete');updated=true;
      }catch(error){states.set(id,/Complete its measurements/.test(error.message)?'Needs inputs':'Retry needed');accessNote.textContent=item.label+': '+error.message;}finally{root.SiegKeepSelectedLayers=previousKeep;previousVisible.forEach(r=>r.setVisible(r.shown));restoreCheckedLayers();}
     }

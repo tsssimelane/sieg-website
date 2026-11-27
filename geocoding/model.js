@@ -10,5 +10,6 @@ function title(e){return (e.placeName||((prefixes[e.addressType||'home']||types[
 function entrance(e){return (purposes[e.entrancePurpose||'main']||purposes.main)+(e.entranceLabel?' · '+e.entranceLabel:'')}
 function entranceId(e){return e.entranceId||e.siegId+'-E'+String(e.entranceNumber||1).padStart(2,'0')}
 function entranceCode(e){const match=entranceId(e).match(/(?:^|-)E(\d+)$/);return match?'E'+match[1]:'E'+String(e.entranceNumber||1).padStart(2,'0')}
-const api={types,categoryCodes,purposes,details,expired,title,entrance,entranceId,entranceCode};root.SiegAddressModel=api;if(typeof module!=='undefined')module.exports=api;
+function normalizeCode(v){return String(v??'').trim().toUpperCase().replace(/[\s-]+/g,'')}
+const api={normalizeCode,types,categoryCodes,purposes,details,expired,title,entrance,entranceId,entranceCode};root.SiegAddressModel=api;if(typeof module!=='undefined')module.exports=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

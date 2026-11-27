@@ -122,3 +122,21 @@
 .mini-map-workspace-demo .mini-site{padding-bottom:0}
 .mini-map-workspace-demo .mini-body{padding-bottom:5px}
 .mini-map-workspace-demo .mini-dashboard-status{min-height:0;padding-block:5px}
+
+/* Shared agricultural dashboard previews, aligned with the current site demos. */
+.mini-ag-dashboard-demo .mini-ag-view{display:flex;flex-direction:column;gap:7px;background:#f8f8f3;padding:10px;overflow:auto}
+.mini-ag-dashboard-demo [hidden]{display:none!important}
+.mini-ag-field{display:grid;gap:3px;border:1px solid #cddfd7;background:#edf6f2;border-radius:6px;padding:8px;color:#176f73;font:8px/1.4 Arial}
+.mini-ag-field strong{font:bold 9px Arial}.mini-ag-field small{font:7px Arial;color:#607880}
+.mini-ag-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+.mini-ag-metrics>div{background:#fff;border:1px solid #d1dfd8;padding:7px 5px;border-radius:6px;min-width:0}
+.mini-ag-metrics>div:last-child{background:#e4f2eb}.mini-ag-metrics small{display:block;font:7px/1.3 Arial;color:#607880}.mini-ag-metrics b{display:block;font:bold 10px/1.4 Arial;color:#176f73;overflow-wrap:anywhere}
+.mini-ag-view h4{font:bold 10px/1.4 Arial;color:#123546;margin:4px 0}.mini-ag-view>small{font:7px/1.4 Arial;color:#607880}
+.mini-ag-table{overflow:auto;border:1px solid #d1dfd8;border-radius:6px;background:#fff}.mini-ag-table table{border-collapse:collapse;width:100%;font:8px/1.4 Arial;color:#123546}.mini-ag-table th{background:#0b2338;color:white;text-align:left}.mini-ag-table td,.mini-ag-table th{padding:6px;border-bottom:1px solid #deebe4}.mini-ag-table tr:nth-child(even){background:#edf6f2}
+.mini-ag-progress{height:7px;border-radius:8px;background:#d9e9e4;overflow:hidden}.mini-ag-progress i{height:100%;display:block;background:#218b8c}
+.mini-ag-world{background:#e5efeb;border:1px solid #d1dfd8;border-radius:7px;overflow:hidden}.mini-ag-world svg{display:block;width:100%;height:auto}
+/* Fields overview follows Ledger's photographic introduction; map tabs retain their original workspace. */
+#suitability .mini-site [data-demo-view][hidden]{display:none!important}
+#suitability .mini-current-overview{background:#f8f8f3}
+:is(#irrigation,#hydrology,#environment) .mini-site [data-demo-view][hidden]{display:none!important}
+:is(#irrigation,#hydrology,#environment) .mini-current-overview{background:#f8f8f3}
